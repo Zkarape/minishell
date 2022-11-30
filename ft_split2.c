@@ -6,19 +6,12 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:05:44 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/11/30 19:39:02 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:28:02 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
-int	searching_corr_quotes(char *s)
-{
-	int	i;
-
-	i = -1;
-
-}
+#include <stdio.h>
 
 size_t	word_count(char *str, char c)
 {
@@ -33,7 +26,7 @@ size_t	word_count(char *str, char c)
 	{
 		if (str[i] != c)
 		{
-			while (str[i] && str[i] != c && searching_quotes())
+			while (str[i] && str[i] != c)
 				i++;
 			count++;
 		}
@@ -65,6 +58,8 @@ char	*word_allocate(char *str, char c)
 	return (str_malloc);
 }
 
+int	find_quotes()
+
 char	**ft_split(char *str, char c)
 {
 	size_t	i;
@@ -76,18 +71,42 @@ char	**ft_split(char *str, char c)
 		return (NULL);
 	while (*str)
 	{
-		while (*str && *str == c)
-			str++;
-		if (*str && *str != c)
+		if (*str && (*str == '"' || *str == '\''))
 		{
-			arr[i] = word_allocate(str, c);
-			if (!arr[i])
-				return (NULL);
-			i++;
+			while (*str && (*str != '"' || *str != '\''))
+				str++;
+			if (*str && (*str == '"' || *str == '\''))
+			{
+				str++;
+				if (*str && *(str) != '"' && *str != '\'' && *str == c)
+				{
+					while (*str && *str == c)
+						str++;
+					if (*str && *str != c)
+					{
+						arr[i] = word_allocate(str, c);
+						if (!arr[i])
+							return (NULL);
+						i++;
+					}
+					while (*str && *str != c)
+						str++;
+				}
+			}
 		}
-		while (*str && *str != c)
-			str++;
+		str++;
 	}
 	arr[i] = NULL;
 	return (arr);
+}
+
+int main(int ac, char **av)
+{
+	(void)ac;
+	int i = -1;
+	char **arr = ft_split(av[1], '|');
+	while (++i < 2)
+	{
+		printf("%s\n", arr[i]);
+	}
 }
