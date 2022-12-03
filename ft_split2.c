@@ -6,59 +6,115 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:05:44 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/11/30 22:28:02 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:01:44 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "minishell.h"
 
-size_t	word_count(char *str, char c)
+char	*quote_detection(char c)
+{
+	char	*q;
+
+	q = malloc(sizeof(char));
+	if (c != '\0')
+	{
+		if (c == '"')
+			*q = '"';
+		else if (c == '\'')
+			*q = '\'';
+		else
+			*q = 'a';
+	}
+	return (q);
+}
+
+void	more_pipes(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (*s)
+	{
+		if (*(s) == '|')
+			error_handling(1);
+		while (*s && *s == ' ')
+			s++;
+		if (*s == '|')
+			error_handling(1);
+	}
+}
+
+int	word_count(char *s, char c)
 {
 	int		i;
-	size_t	count;
+	int		count;
+	char	quote;
 
-	count = 0;
 	i = 0;
-	if (!str)
+	count = 0;
+	if (!s)
 		return (0);
-	while (str[i])
+	while (s[i])
 	{
-		if (str[i] != c)
+		quote = *(quote_detection(s[i]));
+		if (quote != 'a')
 		{
-			while (str[i] && str[i] != c)
+			i++;
+			while (s[i] && s[i] != quote)
 				i++;
-			count++;
+			i++;
 		}
-		if (!str[i])
-			break ;
-		i++;
+		if (quote == 'a')
+		{
+			if (i != 0 && s[i] != '|')
+				i++;
+			while (s[i] && *(quote_detection(s[i])) == 'a')
+			{
+				if (s[i] == c)
+				{
+					i++;
+					count++;
+					more_pipes(&s[i]);
+				}
+				i++;
+			}
+		}
 	}
 	return (count);
 }
 
-char	*word_allocate(char *str, char c)
-{
-	int			i;
-	char		*str_malloc;
+//char *word_allocate(char *str, char c)
+//{
+//	int	i;
+//	char *str_malloc;
+//
+//
+//}
 
-	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	str_malloc = (char *)malloc(sizeof(char) * (i + 1));
-	if (!str_malloc)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != c)
-	{
-		str_malloc[i] = str[i];
-		i++;
-	}
-	str_malloc[i] = '\0';
-	return (str_malloc);
-}
+//char	*word_allocate(char *str, char c)
+//{
+//	int			i;
+//	char		*str_malloc;
+//
+//	i = 0;
+//	while (str[i] && str[i] != c)
+//		i++;
+//	str_malloc = (char *)malloc(sizeof(char) * (i + 1));
+//	if (!str_malloc)
+//		return (NULL);
+//	i = 0;
+//	while (str[i] && str[i] != c)
+//	{
+//		str_malloc[i] = str[i];
+//		i++;
+//	}
+//	str_malloc[i] = '\0';
+//	return (str_malloc);
+//}
 
-int	find_quotes()
 
 char	**ft_split(char *str, char c)
 {
@@ -66,7 +122,7 @@ char	**ft_split(char *str, char c)
 	char	**arr;
 
 	i = 0;
-	arr = (char **)malloc(sizeof(char *) * (word_count(str, c) + 1));
+//	arr = (char **)malloc(sizeof(char *) * (word_count(str, c) + 1));
 	if (!arr)
 		return (NULL);
 	while (*str)
@@ -84,7 +140,7 @@ char	**ft_split(char *str, char c)
 						str++;
 					if (*str && *str != c)
 					{
-						arr[i] = word_allocate(str, c);
+					//	arr[i] = word_allocate(str, c);
 						if (!arr[i])
 							return (NULL);
 						i++;
@@ -100,13 +156,17 @@ char	**ft_split(char *str, char c)
 	return (arr);
 }
 
+#include <readline/readline.h>
+#include <readline/history.h>
+
 int main(int ac, char **av)
 {
 	(void)ac;
 	int i = -1;
-	char **arr = ft_split(av[1], '|');
-	while (++i < 2)
-	{
-		printf("%s\n", arr[i]);
-	}
+	char *cmd = readline("c2r8s3");
+	printf("count == %d\n", word_count(cmd, '|'));
+//	while (++i < 2)
+//	{
+//		printf("%s\n", arr[i]);
+//	}
 }

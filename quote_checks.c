@@ -6,38 +6,34 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:42:59 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/01 18:35:36 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/03 11:57:45 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_d_quote(char *s)
+int find_d_quote(char *s)
 {
 	int	i;
-	int	j;
-	int	len;
 
 	i = 0;
-	j = 0;
-	len = ft_strlen(s);
-	while (i < len - 1)
+	while (s[i])
 	{
 		if (s[i] == '"')
 		{
-			j = i + 1;
-			while (s[j] && s[j] != '"')
-				j++;
-			if (s[j] != '"')
-				errors_for_quotes(0);
+			i++;
+			while (s[i] && s[i] != '"')
+				i++;
+			if(s[i] != '"')
+				return (0);
 		}
 		else if (s[i] == '\'')
 		{
-			j = i + 1;
-			while (s[j] && s[j] != '\'')
-				j++;
-			if (s[j] != '\'')
-				errors_for_quotes(0);
+			i++;
+			while (s[i] && s[i] != '\'')
+				i++;
+			if(s[i] != '\'')
+				return (0);
 		}
 		i++;
 	}
@@ -46,7 +42,7 @@ int	find_d_quote(char *s)
 //
 //int main()
 //{
-//	char s[3];
+//	char s[4];
 //	gets(s);
-//	printf("%d\n", find_d_quote(s));
+//	printf("%d %zu\n", find_d_quote(s), ft_strlen(s));
 //}

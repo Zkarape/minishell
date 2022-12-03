@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/01 18:36:09 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:15:41 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int			ft_count(char const *s, char c);
 char const	*ft_start(char const *s, char c);
 char const	*ft_end(char const *s, char c);
 int			ft_check_alloc(char **split, char *str, int index);
-char		**ft_split(char const *s, char c);
+char		**ft_split(char *s, char c);
 
 //utils.c
 char	*ft_strjoin(char const *s1, char const *s2);
 
 //error_cases
-void	errors_for_quotes(int flag);
+void	error_handling(int flag);
 char	*ft_strchr(const char *s, int c);
 
 # endif
