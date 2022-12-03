@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/03 16:15:41 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/03 21:04:22 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 typedef struct s_commands
 {
+	char	*str;
 	char	*redir;
 	char	*command;
 	char	**options;
-	char	*join1;
 	char	**splitted;
 }	t_cmd;
 
