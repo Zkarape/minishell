@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/11/30 01:04:04 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:36:09 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ typedef struct s_token
 	int		flag;
 }	t_token;
 
+//quote_checks
+
+int	find_d_quote(char *s);
+
 //split_utils.c
 //
 void		*ft_calloc(size_t count, size_t size);
@@ -49,7 +53,12 @@ char const	*ft_start(char const *s, char c);
 char const	*ft_end(char const *s, char c);
 int			ft_check_alloc(char **split, char *str, int index);
 char		**ft_split(char const *s, char c);
+
 //utils.c
 char	*ft_strjoin(char const *s1, char const *s2);
+
+//error_cases
+void	errors_for_quotes(int flag);
+char	*ft_strchr(const char *s, int c);
 
 # endif
