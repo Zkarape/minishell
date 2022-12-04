@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/03 21:04:22 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/04 12:03:01 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_token
 
 //quote_checks
 
-int	find_d_quote(char *s);
+int	find_d_quote(char *s, char quote); // WARNING: changed
 
 //split_utils.c
 //
