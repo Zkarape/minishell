@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/04 12:03:01 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:08:49 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,36 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <stdio.h>
+# include <stddef.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdio.h>
 
-typedef struct s_commands
+typedef struct s_node
 {
-	char	*str;
-	char	*redir;
-	char	*command;
-	char	**options;
-	char	**splitted;
-}	t_cmd;
+	char	*data;
+	struct	s_node *next;
+}	t_node;
 
-typedef struct s_token
+typedef struct s_list
 {
-	char	*token;
-	int		flag;
-}	t_token;
+	t_node	*head;
+	t_node	*tail;
+	int		size;
+}	t_list;
+
+typedef struct s_cmd
+{
+	
+};
 
 //quote_checks
+int find_d_unquote(char *s);
 
-int	find_d_quote(char *s, char quote); // WARNING: changed
+//summerize.c
+int	find_d_quote(char *s, char quote);
 
-//split_utils.c
-//
-void		*ft_calloc(size_t count, size_t size);
-void		ft_bzero(void *s, size_t n);
-void		*ft_memset(void *b, int c, size_t len);
-size_t		ft_strlcpy(char *dest, const char *src, size_t dstsize);
-size_t		ft_strlen(const char *s);
-
-//ft_split.c
-//
-int			ft_count(char const *s, char c);
-char const	*ft_start(char const *s, char c);
-char const	*ft_end(char const *s, char c);
-int			ft_check_alloc(char **split, char *str, int index);
-char		**ft_split(char *s, char c);
-
-//utils.c
-char	*ft_strjoin(char const *s1, char const *s2);
 
 //error_cases
 void	error_handling(int flag);

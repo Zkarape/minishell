@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:30:08 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/11/29 22:44:13 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:32:41 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,4 @@ char	*read_cmd_line()
 
 	cmd = readline("minishell$");
 	return (cmd);
-}
-
-char	**splitting(t_cmd *pars)
-{
-	pars->splitted = ft_split(read_cmd_line(), '|');
 }

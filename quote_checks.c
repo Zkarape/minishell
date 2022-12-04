@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quote_checks.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:42:59 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/03 11:57:45 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:34:15 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int find_d_quote(char *s)
+int find_d_unquote(char *s)
 {
 	int	i;
 
@@ -39,10 +39,3 @@ int find_d_quote(char *s)
 	}
 	return (1);
 }
-//
-//int main()
-//{
-//	char s[4];
-//	gets(s);
-//	printf("%d %zu\n", find_d_quote(s), ft_strlen(s));
-//}

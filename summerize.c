@@ -6,31 +6,11 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 21:13:41 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/04 12:15:39 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:36:10 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stddef.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdio.h>
-
-//list for grouping
-
-typedef struct s_node
-{
-	char	*data;
-	struct	s_node *next;
-}	t_node;
-
-typedef struct s_list
-{
-	t_node	*head;
-	t_node	*tail;
-	int		size;
-}	t_list;
 
 t_list	*lst_construct(void)
 {
@@ -85,7 +65,6 @@ void	lst_print(t_list *list)
 	}
 	printf("NULL\n");
 }
-/////////////////////////////////
 
 char	*ft_substr_m(char *s, int start, int end)
 {
@@ -97,62 +76,41 @@ char	*ft_substr_m(char *s, int start, int end)
 	while (start < end)
 	{
 		dst[i] = s[start];
+		start++;
 		i++;
 	}
-	// null termination missing : WARNING
 	dst[i] = '\0';
 	return (dst);
 }
-
-/*
-char	quote_detection(char c)
-{
-	if (c == '"')
-		return (c);
-	else if (c == '\'')
-		return (c);
-	else
-		return ('a');
-}
-
-*/
 
 int	find_d_quote(char *s, char quote)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while (s[++i])
 		if (s[i] == quote)
 			return (i);
-	return (0); // WARNING CHANGED
+	return (0);
 }
-/*
-int	until_d_next_quote(char quote, char *s)
-{
-	int	start;
 
-	start = find_d_quote(s, quote) + 1;
-	if (quote != 'a')
+void	more_pipes(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (*s)
 	{
-		while (s[start] && s[start] != quote)
-			start++;
+		if (*(s) == '|')
+			error_handling(1);
+		while (*s && *s == ' ')
+			s++;
+		if (*s == '|')
+			error_handling(1);
 	}
-	return (start);
 }
 
-int	from_d_end(char quote, char *s)
-{
-	int	end;
-	int	start2;
-
-	start2 = until_d_next_quote(quote, s);
-	end = 0;
-	
-}
-*/
-
-void	group_until_pipe(char *s)
+t_list	*group_until_pipe(char *s)
 {
 	int		i;
 	int		start;
@@ -169,12 +127,15 @@ void	group_until_pipe(char *s)
 			i += find_d_quote(&s[i], s[i]);
 		else if (s[i] == '|')
 		{
+			more_pipes(&s[i]);
 			lst_add_last(group, ft_substr_m(s, start, i));
-			start = i + 1; // start in else if not outside : WARNING
+			start = i + 1;
 		}
 		i++;
 	}
-	lst_print(group);
+	lst_add_last(group, ft_substr_m(s, start, i));
+	//lst_print(group);
+	return (group);
 }
 
 int main()

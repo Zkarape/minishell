@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   trimming.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 21:09:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/03/26 15:46:48 by zkarapet         ###   ########.fr       */
+/*   Created: 2022/12/04 18:13:28 by aivanyan          #+#    #+#             */
+/*   Updated: 2022/12/04 18:34:50 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*(char *)s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (*(char *)s == (char)c)
-		return ((char *)s);
-	return (0);
-}
+#include "minishell.h"
+
+
+//char	*str_trimmer(char *s, )
