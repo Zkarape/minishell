@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/wait.h>
 # include <stdio.h>
 # include <stddef.h>
 # include <stdlib.h>
@@ -37,10 +36,10 @@ typedef struct s_list
 	int		size;
 }	t_list;
 
-typedef struct s_cmd
-{
+// typedef struct s_cmd
+// {
 	
-};
+// };
 
 //quote_checks
 int find_d_unquote(char *s);
