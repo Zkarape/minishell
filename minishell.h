@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/04 18:08:49 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/06 19:19:44 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ typedef struct s_node
 	char	*data;
 	struct	s_node *next;
 }	t_node;
+
+typedef	struct	s_cmd
+{
+	char	**args;
+	int		fd_out;
+	int		fd_in;
+	int		quoted;
+	struct s_cmd *next;
+}	t_cmd;
+
+typedef	struct	s_listik_cmd
+{
+	t_cmd	*head;
+	t_cmd	*tail;
+	int		size;
+}	t_listik_cmd;
 
 typedef struct s_list
 {
