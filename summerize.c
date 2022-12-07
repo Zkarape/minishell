@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 21:13:41 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/04 14:36:10 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:56:47 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,4 @@ t_list	*group_until_pipe(char *s)
 	lst_add_last(group, ft_substr_m(s, start, i));
 	//lst_print(group);
 	return (group);
-}
-
-int main()
-{
-	group_until_pipe(readline("c2r2s5"));
 }

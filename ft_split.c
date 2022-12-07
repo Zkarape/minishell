@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 19:10:18 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/06 18:27:13 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:28:29 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 int	ft_is_space(char c)
 {
@@ -18,6 +18,8 @@ int	ft_is_space(char c)
 		|| c == '\n' || c == '\r' || c == '\v');
 }
 
+// need to change split, 
+// split only in case when white space is out of quotes
 size_t	word_count(char *str)
 {
 	int		i;
@@ -32,7 +34,11 @@ size_t	word_count(char *str)
 		if (!ft_is_space(str[i]))
 		{
 			while (str[i] && !ft_is_space(str[i]))
+			{
+				if (str[i] == '"' || str[i] == '\'')
+					i += find_d_quote(&str[i], str[i]);
 				i++;
+			}
 			count++;
 		}
 		if (!str[i])
@@ -42,14 +48,37 @@ size_t	word_count(char *str)
 	return (count);
 }
 
+int		word_cpy(char *s_m, char *s, char quote)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		*s_m = s[i];
+		s_m++;
+		if (s[i] == quote)
+		{
+			*s_m = s[i];
+			return (i);
+		}
+			
+	}
+	return (0);
+}
+
 char	*word_allocate(char *str)
 {
 	int			i;
 	char		*str_malloc;
 
 	i = 0;
-	while (str[i] && !ft_is_space(str[i]));
+	while (str[i] && !ft_is_space(str[i]))
+	{
+		if (str[i] == '"' || str[i] == '\'')
+			i += find_d_quote(&str[i], str[i]);
 		i++;
+	}
 	str_malloc = (char *)malloc(sizeof(char) * (i + 1));
 	if (!str_malloc)
 		return (NULL);
@@ -57,10 +86,22 @@ char	*word_allocate(char *str)
 	while (str[i] && !ft_is_space(str[i]))
 	{
 		str_malloc[i] = str[i];
+		if (str[i] == '"' || str[i] == '\'')
+			i += word_cpy(&str_malloc[i + 1], &str[i], str[i]);
 		i++;
 	}
 	str_malloc[i] = '\0';
 	return (str_malloc);
+}
+
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		;
+	return (i);
 }
 
 char	**ft_split(char *str)
@@ -88,4 +129,10 @@ char	**ft_split(char *str)
 	}
 	arr[i] = NULL;
 	return (arr);
+}
+
+int main(int ac, char **av)
+{
+	char *s = malloc(sizeof(char) * 55);
+	printf("%s\n", word_allocate(av[1]));
 }

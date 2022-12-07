@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:13:28 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/12/06 22:18:22 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:50:08 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*str_return_trimmed(char *s, int start, int end)
 		dst[i] = s[end];
 		end++;
 		i++;
-	}
+	} 
 	dst[i] = '\0';
 	return (dst);
 }
@@ -155,10 +155,10 @@ void	filling_node(char **splitted_data)
 
 	node = cmd_node_initializer();
 	i = -1;
-	while (splitted_data[++i])
-	{
-		if ()
-	}
+	//while (splitted_data[++i])
+	//{
+	//	if ()
+	//}
 }
 
 void	defining_cmd_list(t_listik_cmd *cmd, char **splitted_data)

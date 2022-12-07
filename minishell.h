@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/06 19:19:44 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/07 20:44:57 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,6 @@ int	find_d_quote(char *s, char quote);
 void	error_handling(int flag);
 char	*ft_strchr(const char *s, int c);
 
+//trimming
+int	ft_strlen(char *s);
 # endif
