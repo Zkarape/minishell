@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 19:10:18 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/07 22:28:29 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/08 22:03:03 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,16 @@ int		word_cpy(char *s_m, char *s, char quote)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while (s[++i])
 	{
-		*s_m = s[i];
-		s_m++;
+		s_m[i] = s[i];
 		if (s[i] == quote)
 		{
-			*s_m = s[i];
+			s_m[i] = s[i];
 			return (i);
 		}
-			
+
 	}
 	return (0);
 }
@@ -87,7 +86,7 @@ char	*word_allocate(char *str)
 	{
 		str_malloc[i] = str[i];
 		if (str[i] == '"' || str[i] == '\'')
-			i += word_cpy(&str_malloc[i + 1], &str[i], str[i]);
+			i += word_cpy(&str_malloc[i], &str[i], str[i]);
 		i++;
 	}
 	str_malloc[i] = '\0';
@@ -120,12 +119,15 @@ char	**ft_split(char *str)
 		if (*str && !ft_is_space(*str))
 		{
 			arr[i] = word_allocate(str);
-			if (!arr[i])
+			if (!arr[i++])
 				return (NULL);
-			i++;
 		}
 		while (*str && !ft_is_space(*str))
+		{
+			if (*str == '"' || *str == '\'')
+				str += find_d_quote(str, *str);
 			str++;
+		}
 	}
 	arr[i] = NULL;
 	return (arr);
@@ -133,6 +135,17 @@ char	**ft_split(char *str)
 
 int main(int ac, char **av)
 {
-	char *s = malloc(sizeof(char) * 55);
-	printf("%s\n", word_allocate(av[1]));
+	int i;
+
+	i = -1;
+	char *s = readline("minishell$");
+	//printf("%s\n", word_allocate(s));
+	char **arr = ft_split(s);
+	while (arr[++i])
+	{
+		printf("before %s\n", arr[i]);
+		char *cpy = strcpy_noquotes(arr[i], '"');
+		printf("after %s\n", cpy);
+	}
+	
 }

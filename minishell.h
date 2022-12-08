@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/07 20:44:57 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/08 22:02:14 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,19 @@ typedef struct s_list
 // {
 	
 // };
+//ft_split
+int		word_cpy(char *s_m, char *s, char quote);
 
 //quote_checks
-int find_d_unquote(char *s);
+int		find_d_unquote(char *s);
+char	*strcpy_noquotes(char *str, char c);
 
 //summerize.c
-int	find_d_quote(char *s, char quote);
-
+int		find_d_quote(char *s, char quote);
 
 //error_cases
 void	error_handling(int flag);
-char	*ft_strchr(const char *s, int c);
 
 //trimming
-int	ft_strlen(char *s);
+int		ft_strlen(char *s);
 # endif
