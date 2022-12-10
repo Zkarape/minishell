@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/08 22:02:14 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:25:02 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ void	error_handling(int flag);
 
 //trimming
 int		ft_strlen(char *s);
+t_list	*lst_construct(void);
 # endif

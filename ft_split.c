@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 19:10:18 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/08 22:03:03 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:35:06 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	ft_is_space(char c)
 		|| c == '\n' || c == '\r' || c == '\v');
 }
 
-// need to change split, 
-// split only in case when white space is out of quotes
 size_t	word_count(char *str)
 {
 	int		i;
@@ -93,16 +91,6 @@ char	*word_allocate(char *str)
 	return (str_malloc);
 }
 
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		;
-	return (i);
-}
-
 char	**ft_split(char *str)
 {
 	size_t	i;
@@ -131,21 +119,4 @@ char	**ft_split(char *str)
 	}
 	arr[i] = NULL;
 	return (arr);
-}
-
-int main(int ac, char **av)
-{
-	int i;
-
-	i = -1;
-	char *s = readline("minishell$");
-	//printf("%s\n", word_allocate(s));
-	char **arr = ft_split(s);
-	while (arr[++i])
-	{
-		printf("before %s\n", arr[i]);
-		char *cpy = strcpy_noquotes(arr[i], '"');
-		printf("after %s\n", cpy);
-	}
-	
 }

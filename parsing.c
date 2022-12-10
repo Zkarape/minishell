@@ -6,12 +6,11 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:30:08 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/04 14:32:41 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:25:32 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+#include "minishell.h"
 
 char	*read_cmd_line()
 {

@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:13:28 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/12/07 21:50:08 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:25:59 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*str_return_trimmed(char *s, int start, int end)
 	return (dst);
 }
 
-t_listik_cmd	*lst_construct(void)
+t_listik_cmd	*lstik_construct(void)
 {
 	t_listik_cmd	*new_list;
 
@@ -211,9 +211,3 @@ char	*iterating_to_split_by_sp(t_list *listik, t_listik_cmd *cmd)
 // 		/* code */
 // 	}
 // }
-
-int main(int ac, char **av)
-{
-	cleaner_from_st_to_end(av[1], 2, 5);
-	//printf("s == %s\n", cleaner_from_st_to_end(av[1], 2, 5));
-}
