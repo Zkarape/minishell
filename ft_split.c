@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 19:10:18 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/10 17:35:06 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:03:59 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		word_cpy(char *s_m, char *s, char quote)
 			s_m[i] = s[i];
 			return (i);
 		}
-
 	}
 	return (0);
 }

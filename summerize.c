@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 21:13:41 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/17 14:38:10 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/17 22:16:35 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,15 @@ void	more_pipes(char *s)
 	}
 }
 
-void	group_until_pipe(char *s, t_list *group)
+t_list	*group_until_pipe(char *s)
 {
 	int		i;
 	int		start;
+	t_list	*group;
 
 	i = 0;
 	start = 0;
+	group = lst_construct();
 	if (s[0] == '|')
 		error_handling(1);
 	while (s[i])
@@ -133,4 +135,5 @@ void	group_until_pipe(char *s, t_list *group)
 	}
 	lst_add_last(group, ft_substr_m(s, start, i));
 	lst_print(group);
+	return (group);
 }

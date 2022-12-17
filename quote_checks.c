@@ -6,13 +6,13 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:42:59 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/08 22:09:09 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/17 17:26:01 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int find_d_unquote(char *s)
+int find_d_unquoted(char *s)
 {
 	int	i;
 
@@ -64,3 +64,4 @@ char	*strcpy_noquotes(char *str, char c)
 	cpy[j] = '\0';
 	return (cpy);
 }
+
