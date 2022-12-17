@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/10 17:25:02 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:19:15 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ typedef	struct	s_cmd
 	struct s_cmd *next;
 }	t_cmd;
 
-typedef	struct	s_listik_cmd
-{
-	t_cmd	*head;
-	t_cmd	*tail;
-	int		size;
-}	t_listik_cmd;
-
 typedef struct s_list
 {
 	t_node	*head;
@@ -56,6 +49,11 @@ typedef struct s_list
 // {
 	
 // };
+// nor.c
+int		ft_is_space(char c);
+char	*less_red(char *s);
+void	func_for_reds(char *s, t_cmd *cmd_node);
+t_cmd	*cmd_node_initializer(void);
 //ft_split
 int		word_cpy(char *s_m, char *s, char quote);
 
@@ -64,7 +62,10 @@ int		find_d_unquote(char *s);
 char	*strcpy_noquotes(char *str, char c);
 
 //summerize.c
+void	group_until_pipe(char *s, t_list *group);
+void	lst_print(t_list *list);
 int		find_d_quote(char *s, char quote);
+t_list	*lst_construct(void);
 
 //error_cases
 void	error_handling(int flag);
@@ -72,4 +73,5 @@ void	error_handling(int flag);
 //trimming
 int		ft_strlen(char *s);
 t_list	*lst_construct(void);
+t_cmd	*cmd_node_initializer(void);
 # endif

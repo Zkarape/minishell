@@ -21,19 +21,19 @@ char	*cpy_with_cleaining(char *dst, char *src, int n)
 	return (dst);
 }
 
-int main()
-{
-	char **s = malloc(sizeof(char*) * 1);
-	char *s1 = malloc(sizeof(char) * 5);
-	int	i = -1;
-	while (++i < 2)
-	{
-		*s = malloc(sizeof(char) * 3);
-		s[0][0] = '"';
-		s[0][1] = '<';
-		s[0][2] = '"';
-	}
-	printf("%s\n", *s);
-	*s = cpy_with_cleaining(*s, "<", 1);
-	printf("%s\n", *s);
-}
+//int main()
+//{
+//	char **s = malloc(sizeof(char*) * 1);
+//	char *s1 = malloc(sizeof(char) * 5);
+//	int	i = -1;
+//	while (++i < 2)
+//	{
+//		*s = malloc(sizeof(char) * 3);
+//		s[0][0] = '"';
+//		s[0][1] = '<';
+//		s[0][2] = '"';
+//	}
+//	printf("%s\n", *s);
+//	*s = cpy_with_cleaining(*s, "<", 1);
+//	printf("%s\n", *s);
+//}
