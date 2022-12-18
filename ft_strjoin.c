@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_cases.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 17:49:04 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/18 19:10:33 by zkarapet         ###   ########.fr       */
+/*   Created: 2022/03/14 20:20:02 by zkarapet          #+#    #+#             */
+/*   Updated: 2022/12/18 19:40:42 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_handling(int flag)
+char	*ft_strjoin(char *s1, char *s2, int start, int end)
 {
-	if (flag == 0)
+	int		i;
+	char	*dst;
+
+	i = 0;
+	dst = (char *)malloc((ft_strlen(s1) + start - end) * sizeof(char));
+	if (!dst)
+		return (NULL);
+	while (i < ft_strlen(s1))
 	{
-		write(2, "parse error, quote is not closed\n", 33);
-		exit(1);
+		dst[i] = s1[i];
+		i++;
 	}
-	else if (flag == 1)
+	while (end < start)
 	{
-		write(2, "parse error near '|'\n", 20);
-		exit(1);
+		dst[i] = s2[end];
+		i++;
+		end++;
 	}
-	else if (flag == 2)
-	{
-		write(2, "parse error near '<'\n", 20);
-		exit(1);
-	}
-	else if (flag == 3)
-	{
-		write(2, "file not found'\n", 14);
-		exit(1);
-	}
+	dst[i] = '\0';
+	return (dst);
 }

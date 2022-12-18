@@ -5,6 +5,8 @@ int	ft_strlen(char *s)
 	int	i;
 
 	i = -1;
+	if (!s)
+		return (0);
 	while (s[++i])
 		;
 	return (i);
@@ -67,6 +69,22 @@ t_cmd	*cmd_node_initialize(void)
 	return (node);
 }
 
+void	more_reds(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	if (*s)
+	{
+		if (*(s) == c )
+			error_handling(2);
+		while (*s && *s == ' ')
+			s++;
+		if (*s == c)
+			error_handling(2);
+	}
+}
+
 char	*str_return_trimmed(char *s, int start, int end)
 {
 	char	*dst;
@@ -87,48 +105,58 @@ char	*str_return_trimmed(char *s, int start, int end)
 	return (dst);
 }
 
-void	find_start_end(char *s, int *start, int *end)
+void	find_start_end(char *s, t_cmd *cmd_node)
 {
-	int	i;
+	int		i;
+	int		start;
+	int		end;
+	char	*str;
 
 	i = -1;
+	str = NULL;
+	end = 0;
+	start = 0;
 	while (s[++i])
 	{
 		if (s[i] == '\'' || s[i] == '"')
 			i += find_d_quote(&s[i], s[i]);
 		else if (is_red(s[i]))
 		{
-			*start = i;
+			start = i;
+			str = ft_strjoin(str, s, start, end);
 			while (ft_is_space(s[i]))
 				i++;
-			while (!ft_is_space(s[i]))
+			while (!ft_is_space(s[i]) && s[i])
+			{
+				if (is_red(s[i + 1]))
+					break;
 				i++;
-			*end = i;
+			}
+			end = i;
 		}
 	}
+	while (ft_is_space(s[start]))
+		start++;
+	func_for_reds(s, cmd_node, start, end);
+	printf("out == %d, in == %d", cmd_node->fd_out, cmd_node->fd_in);
+	cmd_node->args = ft_strjoin(str, s, i, end);
 }
 
 void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
 {
-	int		start;
-	int		end;
 	char	*s;
 	int		i;
 
-	start = 0;
-	end = 0;
 	i = -1;
 	s = node->data;
 	cmd_lst_add_last(cmd_lst);
-	find_start_end(s, &start, &end);
-	cmd_lst->tail->args = str_return_trimmed(s, start, end);
-	func_for_reds(node->data, cmd_lst->tail, start, end);
+	find_start_end(s, cmd_lst->tail);
 }
 
 t_cmd_lst	*grouping_with_red(t_list *pipe_group)
 {
-	int		i;
-	t_node	*cur;
+	int			i;
+	t_node		*cur;
 	t_cmd_lst	*cmd_lst;
 
 	i = -1;

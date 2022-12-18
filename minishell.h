@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/17 22:20:40 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/18 19:27:25 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_list	*lst_construct(void);
 int		find_d_quote(char *s, char quote);
 
 //file_for_red.c
-char	*less_red(char *s);
+char	*less_red(char *s, int st, int end);
 int		is_red(char c);
 void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end);
 
@@ -84,13 +84,16 @@ void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end);
 void	error_handling(int flag);
 
 //group_until_reds.c
-t_cmd_lst	*cmd_lst_construct(void);
-void		cmd_lst_add_last(t_cmd_lst *list);
+t_cmd_lst		*cmd_lst_construct(void);
+void			cmd_lst_add_last(t_cmd_lst *list);
 t_cmd_lst		*grouping_with_red(t_list *pipe_group);
-void		one_cmd_init(t_node *node, t_cmd_lst *cmd_lst);
-void		find_start_end(char *s, int *start, int *end);
-t_cmd		*cmd_node_initialize(void);
-char		*str_return_trimmed(char *s, int start, int end);
+void			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst);
+void			find_start_end(char *s, t_cmd *cmd);
+t_cmd			*cmd_node_initialize(void);
+char			*str_return_trimmed(char *s, int start, int end);
+
+//ft_strjoin.c
+char	*ft_strjoin(char *s1, char *s2, int start, int end);
 //trimming
 int		ft_strlen(char *s);
 t_list	*lst_construct(void);

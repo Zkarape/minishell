@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 19:13:04 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/17 22:24:53 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:35:09 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,20 @@ int	is_red(char c)
 	return (c == '<' || c == '>');
 }
 
-char	*less_red(char *s)
+char	*filename_trim(char *s, int k)
 {
-	char	*file;
 	int		i;
-	int		k;
-	int		j;
+	char	*file;
 
-	i = -1;
-	k = -1;
-	j = 0;
-	while (s[++i])
-		if (!ft_is_space(s[i]) && !is_red(s[i]))
-			k++;
+	i = 0;
 	file = malloc(sizeof(char) * k + 1);
-	i = -1;
-	while (++i < k)
-		if (!ft_is_space(s[i]) && !is_red(s[i]))
-			file[j++] = s[i];
-	file[j] = '\0';
+	while (s[i] && i < k)
+	{
+		file[i] = s[i];
+		i++;
+	}
+	file[i] = '\0';
+	printf("file == %s\n", file);
 	return (file);
 }
 
@@ -44,26 +39,23 @@ void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end)
 	int	i;
 
 	i = start;
-	while (s[i] && i < end)
+	if (s[i] == '<')
 	{
-		if (s[i] == '<')
-		{
-			if (cmd_node->fd_out != 1)
-				close(cmd_node->fd_out);
-		//	if (s[i + 1] == '<')
-			//heredoc	cmd_node->fd_out = open(less_red(&s[i + 2], O_RDONLY, );
-			else
-				cmd_node->fd_out = open(less_red(&s[i + 1]), O_RDONLY);
+		if (s[i + 1] == '<')
+			cmd_node->fd_out = open(filename_trim(&s[i + 2], end - start), O_RDONLY);
+		else
+		{	
+			if ((cmd_node->fd_out = open(filename_trim(&s[i + 1], end - start), O_RDONLY)) < 0)
+				error_handling(3);
 		}
-		else if (s[i] == '>')
+	}
+	else if (s[i] == '>')
+	{
+		if (s[i + 1] == '>')
+			cmd_node->fd_in = open(filename_trim(&s[i + 2], end - start), O_WRONLY | O_APPEND | O_CREAT, 0644);
+		else
 		{
-			if (cmd_node->fd_in != 1)
-				close(cmd_node->fd_in);
-			if (s[i + 1] == '>')
-				cmd_node->fd_in = open(less_red(&s[i + 2]), O_WRONLY | O_APPEND | O_CREAT);
-			else
-				cmd_node->fd_in = open(less_red(&s[i + 1]), O_WRONLY | O_TRUNC | O_CREAT);
+			cmd_node->fd_in = open(filename_trim(&s[i + 1], end - start), O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		}
-		i++;
 	}
 }
