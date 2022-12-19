@@ -5,14 +5,14 @@ int main(int ac, char **av)
 	//int i;
 
 	//i = -1;
+	int i = -1;
 	char *s = readline("minishell$");
 	grouping_with_red(group_until_pipe(s));
 	//char **arr = ft_split(s);
 	//char *cpy;
 	//while (arr[++i])
 	//{
-	//	printf("before %s\n", arr[i]);
+///	printf("sizeof %lu\n", sizeof(d)/sizeof(int));
 	//	cpy = strcpy_noquotes(arr[i], '"');
 	//	printf("after %s\n", cpy);
-	
 }	

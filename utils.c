@@ -6,11 +6,23 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 20:20:02 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/18 19:40:42 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:13:00 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = -1;
+	if (!s)
+		return (0);
+	while (s[++i])
+		;
+	return (i);
+}
 
 char	*ft_strjoin(char *s1, char *s2, int start, int end)
 {
@@ -34,4 +46,26 @@ char	*ft_strjoin(char *s1, char *s2, int start, int end)
 	}
 	dst[i] = '\0';
 	return (dst);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	unsigned const char	*str1;
+	unsigned const char	*str2;
+
+	str1 = (unsigned const char *)s1;
+	str2 = (unsigned const char *)s2;
+	while (*str1 || *str2)
+	{
+		if (*str1 != *str2)
+			return (*str1 - *str2);
+		str1++;
+		str2++;
+	}
+	return (0);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
 }

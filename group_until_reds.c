@@ -1,17 +1,5 @@
 #include "minishell.h"
 
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = -1;
-	if (!s)
-		return (0);
-	while (s[++i])
-		;
-	return (i);
-}
-
 void	cmd_lst_print(t_cmd_lst *list)
 {
 	t_cmd	*cur;
@@ -66,6 +54,7 @@ t_cmd	*cmd_node_initialize(void)
 	node->fd_in = 0;
 	node->quoted = 0;
 	node->next = NULL;
+	node->head_red = NULL;
 	return (node);
 }
 
@@ -138,7 +127,6 @@ void	find_start_end(char *s, t_cmd *cmd_node)
 	while (ft_is_space(s[start]))
 		start++;
 	func_for_reds(s, cmd_node, start, end);
-	printf("out == %d, in == %d", cmd_node->fd_out, cmd_node->fd_in);
 	cmd_node->args = ft_strjoin(str, s, i, end);
 }
 

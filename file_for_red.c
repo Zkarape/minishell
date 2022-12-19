@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 19:13:04 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/18 21:35:09 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:33:19 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*filename_trim(char *s, int k)
 		i++;
 	}
 	file[i] = '\0';
+	file = filling_with_nulls(file);
 	printf("file == %s\n", file);
 	return (file);
 }
@@ -37,25 +38,25 @@ char	*filename_trim(char *s, int k)
 void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end)
 {
 	int	i;
+	int	fd;
 
 	i = start;
 	if (s[i] == '<')
 	{
-		if (s[i + 1] == '<')
-			cmd_node->fd_out = open(filename_trim(&s[i + 2], end - start), O_RDONLY);
+		if (s[i - 1] == '<')
+			fd = heredoc(filename_trim(&s[i + 1], end - start));
 		else
-		{	
-			if ((cmd_node->fd_out = open(filename_trim(&s[i + 1], end - start), O_RDONLY)) < 0)
-				error_handling(3);
-		}
+			fd = open(filename_trim(&s[i + 1], end - start), O_RDONLY);
+		cmd_node->fd_out = fd; 
 	}
 	else if (s[i] == '>')
 	{
-		if (s[i + 1] == '>')
-			cmd_node->fd_in = open(filename_trim(&s[i + 2], end - start), O_WRONLY | O_APPEND | O_CREAT, 0644);
+		if (s[i - 1] == '>')
+			fd = open(filename_trim(&s[i + 1], end - start), O_WRONLY | O_APPEND | O_CREAT, 0644);
 		else
-		{
-			cmd_node->fd_in = open(filename_trim(&s[i + 1], end - start), O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		}
+			fd = open(filename_trim(&s[i + 1], end - start), O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		cmd_node->fd_in = fd;
 	}
+	if (fd < 0)
+		error_handling(3);
 }

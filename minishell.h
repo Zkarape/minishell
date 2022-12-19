@@ -6,12 +6,14 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/18 19:27:25 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/19 22:29:52 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define TMPFILENAME "hjdsgcibdcjkeuhckjcjkcdjdkjjscjkdjkcjdj"
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -25,18 +27,33 @@
 
 typedef struct s_node
 {
-	char	*data;
-	struct	s_node *next;
+	char			*data;
+	struct s_node	*next;
 }	t_node;
 
 typedef	struct	s_cmd
 {
-	char	*args;
-	int		fd_out;
-	int		fd_in;
-	int		quoted;
-	struct s_cmd *next;
+	char			*args;
+	int				fd_out;
+	int				fd_in;
+	int				quoted;
+	struct s_cmd	*next;
+	t_red			*head_red;
 }	t_cmd;
+
+typedef	struct	s_red
+{
+	int				type;
+	char			*file;
+	struct s_cmd	*next;
+}	t_red;
+
+typedef struct s_red_lst
+{
+	t_red	*head;
+	t_red	*tail;
+	int		size;
+}	t_red_lst;
 
 typedef struct s_cmd_lst
 {
@@ -47,15 +64,11 @@ typedef struct s_cmd_lst
 
 typedef struct s_list
 {
-	t_node	*head;
-	t_node	*tail;
+	t_list	*head;
+	t_list	*tail;
 	int		size;
 }	t_list;
 
-// typedef struct s_cmd
-// {
-	
-// };
 //ft_split
 int		ft_is_space(char c);
 int		word_cpy(char *s_m, char *s, char quote);
@@ -91,10 +104,16 @@ void			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst);
 void			find_start_end(char *s, t_cmd *cmd);
 t_cmd			*cmd_node_initialize(void);
 char			*str_return_trimmed(char *s, int start, int end);
-
-//ft_strjoin.c
+//utils.c
 char	*ft_strjoin(char *s1, char *s2, int start, int end);
-//trimming
+int		ft_strcmp(char *s1, char *s2);
+void	ft_putstr_fd(char *s, int fd);
 int		ft_strlen(char *s);
+//trimming
 t_list	*lst_construct(void);
+//filling_with_nulls.c
+char	*filling_without_c(char *s, char c, int len, int count);
+char	*filling_with_nulls(char *s);
+//heredoc.c
+int	heredoc(char *del);
 # endif
