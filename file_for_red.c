@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nor.c                                              :+:      :+:    :+:   */
+/*   file_for_red.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 19:13:04 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/19 16:33:19 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:17:43 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_red(char c)
+int is_red(char c)
 {
 	return (c == '<' || c == '>');
 }
 
-char	*filename_trim(char *s, int k)
+char *filename_trim(char *s, int k)
 {
-	int		i;
-	char	*file;
+	int i;
+	char *file;
 
 	i = 0;
+	if (k < 0)
+		return (NULL);
 	file = malloc(sizeof(char) * k + 1);
 	while (s[i] && i < k)
 	{
@@ -35,28 +37,21 @@ char	*filename_trim(char *s, int k)
 	return (file);
 }
 
-void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end)
+void func_for_reds(char *s, t_cmd *cmd_node, int start, int end, int type)
 {
-	int	i;
-	int	fd;
 
-	i = start;
-	if (s[i] == '<')
-	{
-		if (s[i - 1] == '<')
-			fd = heredoc(filename_trim(&s[i + 1], end - start));
-		else
-			fd = open(filename_trim(&s[i + 1], end - start), O_RDONLY);
-		cmd_node->fd_out = fd; 
-	}
-	else if (s[i] == '>')
-	{
-		if (s[i - 1] == '>')
-			fd = open(filename_trim(&s[i + 1], end - start), O_WRONLY | O_APPEND | O_CREAT, 0644);
-		else
-			fd = open(filename_trim(&s[i + 1], end - start), O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		cmd_node->fd_in = fd;
-	}
-	if (fd < 0)
-		error_handling(3);
+	int fd;
+
+	if (type == 2)
+		fd = heredoc(filename_trim(&s[start + 1], end - start));
+	else if (type == 1)
+		fd = open(filename_trim(&s[start + 1], end - start), O_RDONLY);
+	cmd_node->fd_out = fd;
+	if (type == 3)
+		fd = open(filename_trim(&s[start + 1], end - start), O_WRONLY | O_APPEND | O_CREAT, 0644);
+	else if (type == 4)
+		fd = open(filename_trim(&s[start + 1], end - start), O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	cmd_node->fd_in = fd;
+	// if (fd < 0)
+	//	error_handling(3);
 }

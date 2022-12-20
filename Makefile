@@ -5,7 +5,7 @@ SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 
 GCC = cc
-FLAGS = -g -ggdb3 -l readline -Wall -Werror -Wextra
+FLAGS = -lreadline -Wall -Werror -Wextra
 
 $(NAME) : $(OBJS)
 	$(GCC) $(FLAGS) $(OBJS) -o $(NAME) -I ./

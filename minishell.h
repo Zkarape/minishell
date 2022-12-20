@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/19 22:29:52 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:02:49 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@
 # include <stdio.h>
 # include <stddef.h>
 # include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdio.h>
+
+
+
+typedef	struct	s_red
+{
+	int				type;
+	char			*file;
+	struct s_cmd	*next;
+}	t_red;
 
 typedef struct s_node
 {
@@ -41,13 +48,6 @@ typedef	struct	s_cmd
 	t_red			*head_red;
 }	t_cmd;
 
-typedef	struct	s_red
-{
-	int				type;
-	char			*file;
-	struct s_cmd	*next;
-}	t_red;
-
 typedef struct s_red_lst
 {
 	t_red	*head;
@@ -64,8 +64,8 @@ typedef struct s_cmd_lst
 
 typedef struct s_list
 {
-	t_list	*head;
-	t_list	*tail;
+	t_node	*head;
+	t_node	*tail;
 	int		size;
 }	t_list;
 
@@ -91,7 +91,7 @@ int		find_d_quote(char *s, char quote);
 //file_for_red.c
 char	*less_red(char *s, int st, int end);
 int		is_red(char c);
-void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end);
+void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end, int type);
 
 //error_cases
 void	error_handling(int flag);
@@ -104,6 +104,7 @@ void			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst);
 void			find_start_end(char *s, t_cmd *cmd);
 t_cmd			*cmd_node_initialize(void);
 char			*str_return_trimmed(char *s, int start, int end);
+int				return_type(char c, char c_next);
 //utils.c
 char	*ft_strjoin(char *s1, char *s2, int start, int end);
 int		ft_strcmp(char *s1, char *s2);
@@ -115,5 +116,9 @@ t_list	*lst_construct(void);
 char	*filling_without_c(char *s, char c, int len, int count);
 char	*filling_with_nulls(char *s);
 //heredoc.c
-int	heredoc(char *del);
-# endif
+int			heredoc(char *del);
+void		red_lst_print(t_red_lst *list);
+t_red_lst	*red_lst_construct(void);
+t_red		*red_node_initialize(void);
+void		red_lst_add_last(t_red_lst *list);
+#endif
