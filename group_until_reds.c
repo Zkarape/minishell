@@ -132,15 +132,12 @@ void	find_start_end(char *s, t_cmd *cmd_node, t_red_lst *red_lst)
 		else if (is_red(s[i]))
 		{
 			str = ft_strjoin(str, s, i, end + 1);
-			printf("after str = %s\n", str);
 			type = return_type(s[i], s[i + 1]);
 			if (type == 2 || type == 3)
 				i++;
 			while (ft_is_space(s[i]))
 				i++;
 			start = i;
-		//	if (ft_is_space(s[i]))
-			//	i++;
 			while (!ft_is_space(s[i + 1]) && !is_red(s[i + 1]) && s[i + 1])
 			 	i++;
 			end = i;
@@ -161,10 +158,8 @@ void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
 	s = node->data;
 	cmd_lst_add_last(cmd_lst);
 	red_lst = red_lst_construct();
-	printf("before tail%s\n", cmd_lst->tail->args);
 	find_start_end(s, cmd_lst->tail, red_lst);
 	cmd_lst->tail->red_lst = red_lst;
-	printf("after tail%s\n", cmd_lst->tail->args);
 }
 
 t_cmd_lst	*grouping_with_red(t_list *pipe_group)
