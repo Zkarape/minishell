@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/20 18:02:49 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:52:37 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <stdio.h>
-
-
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef	struct	s_red
 {
 	int				type;
 	char			*file;
-	struct s_cmd	*next;
+	struct s_red	*next;
 }	t_red;
 
 typedef struct s_node
@@ -38,22 +38,21 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-typedef	struct	s_cmd
-{
-	char			*args;
-	int				fd_out;
-	int				fd_in;
-	int				quoted;
-	struct s_cmd	*next;
-	t_red			*head_red;
-}	t_cmd;
-
 typedef struct s_red_lst
 {
 	t_red	*head;
 	t_red	*tail;
 	int		size;
 }	t_red_lst;
+
+typedef	struct	s_cmd
+{
+	char				*args;
+	int					fd_out;
+	int					fd_in;
+	struct s_cmd		*next;
+	struct s_red_lst	*red_lst;
+}	t_cmd;
 
 typedef struct s_cmd_lst
 {
@@ -89,6 +88,7 @@ t_list	*lst_construct(void);
 int		find_d_quote(char *s, char quote);
 
 //file_for_red.c
+char	*filename_trim(char *s, int k);
 char	*less_red(char *s, int st, int end);
 int		is_red(char c);
 void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end, int type);
@@ -101,7 +101,7 @@ t_cmd_lst		*cmd_lst_construct(void);
 void			cmd_lst_add_last(t_cmd_lst *list);
 t_cmd_lst		*grouping_with_red(t_list *pipe_group);
 void			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst);
-void			find_start_end(char *s, t_cmd *cmd);
+void			find_start_end(char *s, t_cmd *cmd, t_red_lst *red_lst);
 t_cmd			*cmd_node_initialize(void);
 char			*str_return_trimmed(char *s, int start, int end);
 int				return_type(char c, char c_next);
@@ -120,5 +120,6 @@ int			heredoc(char *del);
 void		red_lst_print(t_red_lst *list);
 t_red_lst	*red_lst_construct(void);
 t_red		*red_node_initialize(void);
-void		red_lst_add_last(t_red_lst *list);
+t_red		*red_node_initialize_pro(char *file, int type);
+void		red_lst_add_last(t_red_lst *list, char *file, int type);
 #endif

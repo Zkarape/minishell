@@ -1,12 +1,14 @@
 #include "minishell.h"
+
 int main(int ac, char **av)
 {
 	//int i;
 
 	//i = -1;
 	//int i = -1;
-	//char *s = readline("minishell$");
-	grouping_with_red(group_until_pipe("cat<< c>bd><cd djdj"));
+	char *s = readline("minishell$");
+	printf("s is : %s\n", s);
+	grouping_with_red(group_until_pipe(s));
 	//char **arr = ft_split(s);
 	//char *cpy;
 	//while (arr[++i])

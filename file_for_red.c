@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 19:13:04 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/20 18:17:43 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:29:58 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int is_red(char c)
 	return (c == '<' || c == '>');
 }
 
-char *filename_trim(char *s, int k)
+char	*filename_trim(char *s, int k)
 {
-	int i;
-	char *file;
+	int		i;
+	char	*file;
+	char	*file_trimmed;
 
 	i = 0;
 	if (k < 0)
@@ -32,8 +33,9 @@ char *filename_trim(char *s, int k)
 		i++;
 	}
 	file[i] = '\0';
-	file = filling_with_nulls(file);
-	printf("file == %s\n", file);
+//	file_trimmed = file;
+//	free(file);
+//	file = filling_with_nulls(file_trimmed);
 	return (file);
 }
 
