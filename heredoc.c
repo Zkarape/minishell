@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/21 15:24:02 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:06:14 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	red_lst_print(t_red_lst *list)
 	cur = list->head;
 	while (cur)
 	{
-		printf("%s %d-> ", cur->file, cur->type);
+		printf("%d %d-> ", cur->fd, cur->type);
 		cur = cur->next;
 	}
 	printf("NULL\n");
@@ -38,15 +38,15 @@ t_red_lst	*red_lst_construct(void)
 	return (new_list);
 }
 
-t_red	*red_node_initialize_pro(char *file, int type)
+t_red	*red_node_initialize_pro(int fd, int type)
 {
 	t_red	*node;
 
 	node = malloc(sizeof(t_red));
 	if (!node)
 		return (NULL);
-	node->file = file;
 	node->type = type;
+	node->fd = fd;
 	node->next = NULL;
 	return (node);
 }
@@ -58,17 +58,17 @@ t_red	*red_node_initialize(void)
 	node = malloc(sizeof(t_red));
 	if (!node)
 		return (NULL);
-	node->file = NULL;
 	node->type = 0;
+	node->fd = -1;
 	node->next = NULL;
 	return (node);
 }
 
-void	red_lst_add_last(t_red_lst *list, char *file, int type)
+void	red_lst_add_last(t_red_lst *list, int fd, int type)
 {
 	t_red	*new_node;
 
-	new_node = red_node_initialize_pro(file, type);
+	new_node = red_node_initialize_pro(fd, type);
 	if (list->size == 0)
 	{
 		list->head = new_node;

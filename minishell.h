@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/23 12:25:52 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:06:55 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 typedef	struct	s_red
 {
 	int				type;
-	char			*file;
+	int				fd;
 	struct s_red	*next;
 }	t_red;
 
@@ -91,7 +91,7 @@ int		find_d_quote(char *s, char quote);
 char	*filename_trim(char *s, int k);
 char	*less_red(char *s, int st, int end);
 int		is_red(char c);
-void	func_for_reds(char *s, t_cmd *cmd_node, int start, int end, int type);
+int		func_for_reds(char *s, t_cmd *cmd_node, int start, int end, int type);
 
 //error_cases
 void	error_handling(int flag);
@@ -120,8 +120,8 @@ int			heredoc(char *del);
 void		red_lst_print(t_red_lst *list);
 t_red_lst	*red_lst_construct(void);
 t_red		*red_node_initialize(void);
-t_red		*red_node_initialize_pro(char *file, int type);
-void		red_lst_add_last(t_red_lst *list, char *file, int type);
+t_red		*red_node_initialize_pro(int fd, int type);
+void		red_lst_add_last(t_red_lst *list, int fd, int type);
 
 //expanding.c
 int		is_quote(char c);

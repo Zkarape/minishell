@@ -141,7 +141,7 @@ void	find_start_end(char *s, t_cmd *cmd_node, t_red_lst *red_lst)
 			while (!ft_is_space(s[i + 1]) && !is_red(s[i + 1]) && s[i + 1])
 			 	i++;
 			end = i;
-			red_lst_add_last(red_lst, filename_trim(&s[start + 1], end - start), type);
+			red_lst_add_last(red_lst, func_for_reds(s, cmd_node, start, end, type), type);
 		}
 	}
 	cmd_node->args = ft_strjoin(str, s, i, end + 1);
@@ -160,6 +160,7 @@ void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
 	red_lst = red_lst_construct();
 	find_start_end(s, cmd_lst->tail, red_lst);
 	cmd_lst->tail->red_lst = red_lst;
+	//from tail to 
 }
 
 t_cmd_lst	*grouping_with_red(t_list *pipe_group)

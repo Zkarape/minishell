@@ -9,7 +9,7 @@ int main(int ac, char **av)
 	char *s = readline("minishell$");
 	//printf("s is : %s\n", s);
 	expand(s);
-	//grouping_with_red(group_until_pipe(s));
+	grouping_with_red(group_until_pipe(s));
 	//char **arr = ft_split(s);
 	//char *cpy;
 	//while (arr[++i])
