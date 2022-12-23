@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:59:12 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/21 22:36:21 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/23 12:25:36 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,60 @@ int	is_quote(char c)
 	return (c == '"' || c == '\'');
 }
 
-int	find_dollar_with_arg(char *s_m, int q_idx, int flag)
+int	find_d_quotes(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[++i])
+		if (is_quote(s[i]))
+			return (i - 1);
+	return (i);
+} 
+
+int	find_dollar_del(char *s, int q_idx)
 {
 	int		i;
+	int		start;
 	int		k;
 	char	*del;
 
 	i = 0;
-	k = 0;
-	while (s_m[i] && i < q_idx)
+	start = 0;
+	while (s[i] && i < q_idx)
 	{
-		if (s_m[i] == '$')
+		k = 0;
+		if (s[i] == '$')
 		{
-			while (!is_space(s_m[i]))
+			i++;
+			start = i;
+			while (!ft_is_space(s[i]) && !is_quote(s[i]) && s[i] != '$')
+			{
+				i++;
 				k++;
-			del = ft_substr_m(s_m, i, i + k);
+			}
+			del = ft_substr_m(s, start , start + k);
+			printf("del = %s\n", del);
 			//compare del with env_vars
 		}
+		else
+			i++;
 	}
+	return (i);
 }
 
-void	expand(char *s, int start, int end)
+void	expand(char *s)
 {
 	int		i;
-	char	*s_m;
-
+	
 	i = -1;
 	while (s[++i])
 	{
 		if (s[i] == '"')
-		{
-			s_m = ft_substr_m(s, i, find_d_quote(&s[i], s[i]));
-		}
+			i += find_dollar_del(&s[i], find_d_quote(&s[i], s[i]));
+		else if (s[i] =='\'')
+			i += find_d_quote(&s[i], s[i]);
+		else
+			i += find_dollar_del(&s[i], find_d_quotes(&s[i]));
 	}
 }

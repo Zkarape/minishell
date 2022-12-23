@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/21 14:52:37 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/23 12:25:52 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,10 @@ t_red_lst	*red_lst_construct(void);
 t_red		*red_node_initialize(void);
 t_red		*red_node_initialize_pro(char *file, int type);
 void		red_lst_add_last(t_red_lst *list, char *file, int type);
+
+//expanding.c
+int		is_quote(char c);
+int		find_d_quotes(char *s);
+int		find_dollar_del(char *s, int q_idx);
+void	expand(char *s);
 #endif

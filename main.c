@@ -7,8 +7,9 @@ int main(int ac, char **av)
 	//i = -1;
 	//int i = -1;
 	char *s = readline("minishell$");
-	printf("s is : %s\n", s);
-	grouping_with_red(group_until_pipe(s));
+	//printf("s is : %s\n", s);
+	expand(s);
+	//grouping_with_red(group_until_pipe(s));
 	//char **arr = ft_split(s);
 	//char *cpy;
 	//while (arr[++i])
