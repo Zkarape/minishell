@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/24 21:21:50 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/24 22:19:00 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	error_handling(int flag);
 
 //group_until_reds.c
 t_cmd_lst		*cmd_lst_construct(void);
+void			cmd_lst_print(t_cmd_lst *list);
 void			cmd_lst_add_last(t_cmd_lst *list);
 t_cmd_lst		*grouping_with_red(t_list *pipe_group);
 void			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst);
@@ -143,4 +144,16 @@ int		is_quote(char c);
 int		find_d_quotes(char *s);
 int		find_dollar_del(char *s, int q_idx);
 void	expand(char *s);
+
+//env_lst_construct.c
+void		remove_from_between(t_env *env, t_env_lst *env_lst);
+void		add_between(t_env *predecessor, t_env *successor, char *data);
+t_env		*env_initialize(char *data, t_env *next, t_env *prev);
+t_env_lst	*env_lst_construct(void);
+void		env_lst_add_last(t_env_lst *list, char *data);
+t_env		*env_def_initialize(void);
+void		env_lst_print(t_env_lst *list);
+
+//environment.c
+t_env_lst	*getting_env(char **env);
 #endif

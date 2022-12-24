@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 21:06:39 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/24 21:55:24 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/24 22:20:53 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	env_lst_print(t_env_lst *list)
 {
 	t_env	*cur;
 
-	cur = list->head;
-	while (cur)
+	cur = list->head->next;
+	while (cur->next)
 	{
-		printf("%s-> ", cur->data);
+		printf("%s\n", cur->data);
 		cur = cur->next;
 	}
 }
 
-t_env	*env_def_initialize()
+t_env	*env_def_initialize(void)
 {
 	t_env	*node;
 

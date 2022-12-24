@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int main(int ac, char **av)
+int main(int ac, char **av, char **env)
 {
 	//int i;
 
@@ -8,8 +8,9 @@ int main(int ac, char **av)
 	//int i = -1;
 	char *s = readline("minishell$");
 	//printf("s is : %s\n", s);
-	expand(s);
+//	expand(s);
 	grouping_with_red(group_until_pipe(s));
+	getting_env(env);
 	//char **arr = ft_split(s);
 	//char *cpy;
 	//while (arr[++i])
