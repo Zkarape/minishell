@@ -6,14 +6,12 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/24 20:11:38 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/24 21:21:50 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# define TMPFILENAME "hjdsgcibdcjkeuhckjcjkcdjdkjjscjkdjkcjdj"
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -55,6 +53,13 @@ typedef	struct	s_cmd
 	struct s_red_lst	*red_lst;
 }	t_cmd;
 
+typedef struct	s_env
+{
+	char			*data;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
+
 typedef struct s_cmd_lst
 {
 	t_cmd	*head;
@@ -68,6 +73,13 @@ typedef struct s_list
 	t_node	*tail;
 	int		size;
 }	t_list;
+
+typedef struct	s_env_lst
+{
+	t_env	*head;
+	t_env	*tail;
+	int		size;
+}	t_env_lst;
 
 //ft_split
 int		ft_is_space(char c);
