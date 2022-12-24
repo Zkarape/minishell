@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:59:12 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/23 12:25:36 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/24 20:32:36 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	find_dollar_del(char *s, int q_idx)
 
 void	expand(char *s)
 {
-	int		i;
+	int	i;
 	
 	i = -1;
 	while (s[++i])

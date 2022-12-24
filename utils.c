@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 20:20:02 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/21 16:06:19 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/24 19:33:55 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,16 @@ char	*ft_strjoin(char *s1, char *s2, int start, int end)
 	return (dst);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strncmp(char *s1, char *s2, unsigned int n)
 {
-	unsigned const char	*str1;
-	unsigned const char	*str2;
+	unsigned int	i;
 
-	str1 = (unsigned const char *)s1;
-	str2 = (unsigned const char *)s2;
-	while (*str1 || *str2)
+	i = 0;
+	while (i < n && ((unsigned char)s1[i] || (unsigned char)s2[i]))
 	{
-		if (*str1 != *str2)
-			return (*str1 - *str2);
-		str1++;
-		str2++;
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
 	return (0);
 }
@@ -72,4 +69,5 @@ int	ft_strcmp(char *s1, char *s2)
 void	ft_putstr_fd(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }

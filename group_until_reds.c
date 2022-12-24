@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   group_until_reds.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/24 19:21:25 by zkarapet          #+#    #+#             */
+/*   Updated: 2022/12/24 20:16:06 by zkarapet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //checking, ><, <<<
@@ -93,6 +105,7 @@ char	*str_return_trimmed(char *s, int start, int end)
 	dst[i] = '\0';
 	return (dst);
 }
+
 int	return_type(char c, char c_next)
 {
 	if (c == '<')
@@ -141,11 +154,11 @@ void	find_start_end(char *s, t_cmd *cmd_node, t_red_lst *red_lst)
 			while (!ft_is_space(s[i + 1]) && !is_red(s[i + 1]) && s[i + 1])
 			 	i++;
 			end = i;
-			red_lst_add_last(red_lst, func_for_reds(s, cmd_node, start, end, type), type);
+			printf("trim == %s\n", filename_trim(&s[start + 1], end - start));
+			red_lst_add_last(red_lst, filename_trim(&s[start + 1], end - start), type);
 		}
 	}
 	cmd_node->args = ft_strjoin(str, s, i, end + 1);
-	red_lst_print(red_lst);
 }
 
 void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
@@ -160,6 +173,10 @@ void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
 	red_lst = red_lst_construct();
 	find_start_end(s, cmd_lst->tail, red_lst);
 	cmd_lst->tail->red_lst = red_lst;
+	big_loop(cmd_lst->tail, red_lst);
+//	red_big_loop(red_lst, cmd_lst->tail);
+//	printf("trim == %s\n", );
+	red_lst_print(red_lst);
 	//from tail to 
 }
 

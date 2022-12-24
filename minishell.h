@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/23 16:06:55 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/12/24 20:11:38 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 typedef	struct	s_red
 {
 	int				type;
-	int				fd;
+	char			*file;
 	struct s_red	*next;
 }	t_red;
 
@@ -43,6 +43,7 @@ typedef struct s_red_lst
 	t_red	*head;
 	t_red	*tail;
 	int		size;
+	int		heredoc_k;
 }	t_red_lst;
 
 typedef	struct	s_cmd
@@ -91,7 +92,8 @@ int		find_d_quote(char *s, char quote);
 char	*filename_trim(char *s, int k);
 char	*less_red(char *s, int st, int end);
 int		is_red(char c);
-int		func_for_reds(char *s, t_cmd *cmd_node, int start, int end, int type);
+void	func_for_reds(t_cmd *cmd_node, t_red *red_node);
+void	red_big_loop(t_red_lst *red_lst, t_cmd *cmd);
 
 //error_cases
 void	error_handling(int flag);
@@ -107,7 +109,7 @@ char			*str_return_trimmed(char *s, int start, int end);
 int				return_type(char c, char c_next);
 //utils.c
 char	*ft_strjoin(char *s1, char *s2, int start, int end);
-int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(char *s1, char *s2, unsigned int n);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_strlen(char *s);
 //trimming
@@ -116,12 +118,13 @@ t_list	*lst_construct(void);
 char	*filling_without_c(char *s, char c, int len, int count);
 char	*filling_with_nulls(char *s);
 //heredoc.c
-int			heredoc(char *del);
+int			heredoc(t_red *red_node);
 void		red_lst_print(t_red_lst *list);
 t_red_lst	*red_lst_construct(void);
 t_red		*red_node_initialize(void);
-t_red		*red_node_initialize_pro(int fd, int type);
-void		red_lst_add_last(t_red_lst *list, int fd, int type);
+t_red		*red_node_initialize_pro(char *file, int type);
+void		red_lst_add_last(t_red_lst *list, char *file, int type);
+void		big_loop(t_cmd *cmd_node, t_red_lst *red_lst);
 
 //expanding.c
 int		is_quote(char c);
