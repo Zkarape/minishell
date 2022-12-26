@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:59:12 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/26 14:02:28 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:44:19 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	if_is_dollar(char *s, char **del, int i, int start, t_env_lst *env_lst)
 	return (i);
 }
 
-int	find_dollar_del(char *s, int q_idx, t_env_lst *env_lst, t_cmd *cmd_node)
+int	find_dollar_del(char *s, int q_idx, int i, t_env_lst *env_lst, t_cmd *cmd_node)
 {
 	int		i;
 	int		start;
@@ -88,7 +88,7 @@ int	find_dollar_del(char *s, int q_idx, t_env_lst *env_lst, t_cmd *cmd_node)
 	}
 	//if (!i)
 	//	printf("mtaa %s\n", get_env(env_lst, NULL));
-	return (i);
+	return ();
 }
 
 void	expand(char *s, t_cmd *cmd_node, t_env_lst *env_lst)
