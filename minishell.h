@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/24 22:19:00 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:00:44 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ t_cmd_lst		*grouping_with_red(t_list *pipe_group);
 void			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst);
 void			find_start_end(char *s, t_cmd *cmd, t_red_lst *red_lst);
 t_cmd			*cmd_node_initialize(void);
-char			*str_return_trimmed(char *s, int start, int end);
+char			*str_return_trimmed(char *s, int start, int end, char *val);
 int				return_type(char c, char c_next);
 //utils.c
 char	*ft_strjoin(char *s1, char *s2, int start, int end);
@@ -142,8 +142,9 @@ void		big_loop(t_cmd *cmd_node, t_red_lst *red_lst);
 //expanding.c
 int		is_quote(char c);
 int		find_d_quotes(char *s);
-int		find_dollar_del(char *s, int q_idx);
-void	expand(char *s);
+int		if_is_dollar(char *s, char **del, int i, int start, t_env_lst *env_lst);
+int		find_dollar_del(char *s, int q_idx, t_env_lst *env_lst, t_cmd *cmd_node);
+void	expand(char *s, t_cmd *cmd_node, t_env_lst *env_lst);
 
 //env_lst_construct.c
 void		remove_from_between(t_env *env, t_env_lst *env_lst);

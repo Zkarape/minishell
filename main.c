@@ -3,6 +3,7 @@
 int main(int ac, char **av, char **env)
 {
 	//int i;
+	t_cmd	*cmd_node = NULL;
 
 	//i = -1;
 	//int i = -1;
@@ -10,7 +11,7 @@ int main(int ac, char **av, char **env)
 	//printf("s is : %s\n", s);
 //	expand(s);
 	grouping_with_red(group_until_pipe(s));
-	getting_env(env);
+	expand(s, cmd_node, getting_env(env));
 	//char **arr = ft_split(s);
 	//char *cpy;
 	//while (arr[++i])

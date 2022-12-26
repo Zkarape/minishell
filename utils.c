@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 20:20:02 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/24 19:33:55 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:00:34 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,33 @@ int	ft_strlen(char *s)
 	while (s[++i])
 		;
 	return (i);
+}
+
+char	*str_return_trimmed(char *s, int start, int end, char *val)
+{
+	char	*dst;
+	int		len;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+//	printf("s[0] == %c\n", s[0]);
+	len = ft_strlen(s) - end + start + ft_strlen(val);
+	dst = malloc(sizeof(char) * len);
+	while (++i < start)
+		dst[i] = s[i];
+	while (val && val[++j])
+		dst[i++] = val[j];
+	while (s[end])
+	{
+		dst[i] = s[end];
+		end++;
+		i++;
+	} 
+	dst[i] = '\0';
+//	printf("dest == %s", dst);
+	return (dst);
 }
 
 char	*ft_strjoin(char *s1, char *s2, int start, int end)

@@ -6,33 +6,13 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:21:25 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/24 22:18:33 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/25 20:46:24 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //checking, ><, <<<
-char	*str_return_trimmed(char *s, int start, int end)
-{
-	char	*dst;
-	int		i;
-
-	i = -1;
-	dst = malloc(sizeof(char) * (ft_strlen(s) - end + start));
-	while (++i < start)
-		dst[i] = s[i];
-	end++;
-	while (s[end])
-	{
-		dst[i] = s[end];
-		end++;
-		i++;
-	} 
-	dst[i] = '\0';
-	return (dst);
-}
-
 int	return_type(char c, char c_next)
 {
 	if (c == '<')
@@ -81,7 +61,6 @@ void	find_start_end(char *s, t_cmd *cmd_node, t_red_lst *red_lst)
 			while (!ft_is_space(s[i + 1]) && !is_red(s[i + 1]) && s[i + 1])
 			 	i++;
 			end = i;
-			printf("trim == %s\n", filename_trim(&s[start + 1], end - start));
 			red_lst_add_last(red_lst, filename_trim(&s[start + 1], end - start), type);
 		}
 	}

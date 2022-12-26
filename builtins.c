@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/24 22:06:21 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/25 19:57:42 by zkarapet         ###   ########.fr       */
+/*   Created: 2022/12/25 19:06:24 by zkarapet          #+#    #+#             */
+/*   Updated: 2022/12/25 20:46:01 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env_lst	*getting_env(char **env)
+char	*echo(t_cmd *cmd_node, t_env_lst *env_lst)
 {
-	t_env_lst	*env_lst;
-	int			i;
-
-	env_lst = env_lst_construct();
-	i = -1;
-	while (env[++i])
-		env_lst_add_last(env_lst, env[i]);
-//	env_lst_print(env_lst);
-	return (env_lst);
+	return (NULL);	
 }
