@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 20:20:02 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/27 21:09:21 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/27 22:23:09 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*str_return_trimmed(char *s, int start, int end, char *val)
 
 	i = -1;
 	j = -1;
-//	printf("s[0] == %c\n", s[0]);
 	len = ft_strlen(s) - end + start + ft_strlen(val);
 	dst = malloc(sizeof(char) * len);
 	while (++i < start)
@@ -47,7 +46,6 @@ char	*str_return_trimmed(char *s, int start, int end, char *val)
 		i++;
 	} 
 	dst[i] = '\0';
-//	printf("dest == %s", dst);
 	return (dst);
 }
 
@@ -60,7 +58,7 @@ char	*ft_strjoin(char *s1, char *s2, int start, int end)
 	i = 0;
 	len = ft_strlen(s1);
 	if (start == end)
-		--len;
+		return (NULL);
 	dst = (char *)malloc((ft_strlen(s1) + start - end) * sizeof(char));
 	if (!dst)
 		return (NULL);

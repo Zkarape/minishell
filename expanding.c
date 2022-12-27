@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:59:12 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/27 21:37:25 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/27 22:25:24 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ char	*get_env(t_env_lst *env_lst, char *del)
 	while (env_node->next && del)
 	{
 		if (!ft_strncmp(env_node->data, del, ft_strlen(del)))
-		{
-		//	printf("******************** %s\n", env_node->data + ft_strlen(del) + 1);
 			return (env_node->data + ft_strlen(del) + 1);
-		}
 		env_node = env_node->next;
 	}
 	return (NULL);
@@ -64,7 +61,6 @@ int	if_is_dollar(char *s, char **del, int i, int start, t_env_lst *env_lst)
 		k++;
 	}
 	*del = ft_substr_m(s, start, start + k);
-	printf("del == %s\n", *del);
 	return (i);
 }
 
@@ -78,30 +74,20 @@ int	find_dollar_del(char *s, char **str, int i, int q_idx, int *start, t_env_lst
 	end = 0;
 	j = 0;
 	exp_start = 0;	
-//	printf("s[i]3 == %c\n", s[i]);
 	while (s[i] && i < q_idx)
 	{
-//		printf("q_idx == %d\n", q_idx);
-		if (s[i] == '$')
+		if (s[i] == '$' && s[i + 1] && i + 1 < q_idx)
 		{
 			end = i;
-	//		printf("end == %d\n",  end);
 			i++;
 			exp_start = i;
-		//	printf("s[i]4 == %c\n", s[i]);
 			i = if_is_dollar(s, &del, i, exp_start, env_lst);
 			*str = ft_strjoin(*str, s, end, *start);
-//			printf("*str1 is ::::::: %s\n", *str);
 			*start = end + ft_strlen(del) + 1;
-//			printf("len == %d\n", ft_strlen(del));
-//			printf("start == %c %d\n", s[*start], *start);
-//			printf("start - 1 == %c\n", s[*start]);
 			*str = ft_strjoin(*str, get_env(env_lst, del), ft_strlen(get_env(env_lst, del)), 0);
 		}
 		else
-		{
 			i++;
-		}
 	}
 	//if (!i)
 	//	printf("mtaa %s\n", get_env(env_lst, NULL));
