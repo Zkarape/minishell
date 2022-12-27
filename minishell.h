@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/26 14:00:44 by zkarapet         ###   ########.fr       */
+/*   Updated: 2022/12/27 21:11:18 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,10 @@ void		big_loop(t_cmd *cmd_node, t_red_lst *red_lst);
 
 //expanding.c
 int		is_quote(char c);
-int		find_d_quotes(char *s);
+int		find_d_quotes(char *s, int i);
 int		if_is_dollar(char *s, char **del, int i, int start, t_env_lst *env_lst);
-int		find_dollar_del(char *s, int q_idx, t_env_lst *env_lst, t_cmd *cmd_node);
 void	expand(char *s, t_cmd *cmd_node, t_env_lst *env_lst);
+int		find_dollar_del(char *s, char **str, int i, int q_idx, int *start, t_env_lst *env_lst);
 
 //env_lst_construct.c
 void		remove_from_between(t_env *env, t_env_lst *env_lst);
