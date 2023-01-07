@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	//int i;
 	t_cmd	*cmd_node = NULL;
@@ -20,4 +20,4 @@ int main(int ac, char **av, char **env)
 	//	cpy = strcpy_noquotes(arr[i], '"');
 	//	printf("after %s\n", cpy);
 	//printf("%d",return_type('>', '>'));
-}	
+}

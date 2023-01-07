@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expanding.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 21:59:12 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/01/07 21:41:47 by zkarapet         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	is_quote(char c)
@@ -17,7 +5,7 @@ int	is_quote(char c)
 	return (c == '"' || c == '\'');
 }
 
-int	find_d_quote2(char *s, char quote, int i)
+int	find_last_quote_with_full_index(char *s, char quote, int i)
 {
 	while (s[++i])
 		if (s[i] == quote)
@@ -25,7 +13,7 @@ int	find_d_quote2(char *s, char quote, int i)
 	return (0);
 }
 
-int	find_d_quotes(char *s, int i)
+int	find_first_quote(char *s, int i)
 {
 	while (s[i])
 	{
@@ -78,10 +66,10 @@ int	find_dollar_del(char *s, char **str, int i, int q_idx, int *start, t_env_lst
 
 	end = 0;
 	j = 0;
-	exp_start = 0;	
+	exp_start = 0;
 	while (s[i] && i < q_idx)
 	{
-		if ((s[i] == '$' && s[i + 1] && i + 1 < q_idx) 
+		if ((s[i] == '$' && s[i + 1] && i + 1 < q_idx)
 			|| (s[i + 1] == '$' && i + 1 == q_idx))
 		{
 			end = i;
@@ -105,7 +93,7 @@ void	expand(char *s, t_cmd *cmd_node, t_env_lst *env_lst)
 	int		i;
 	int		start;
 	char	*str;
-	
+
 	i = -1;
 	str = NULL;
 	start = 0;
@@ -113,14 +101,16 @@ void	expand(char *s, t_cmd *cmd_node, t_env_lst *env_lst)
 	{
 		if (s[i] == '"')
 		{
-			i = find_dollar_del(s, &str, i,
-				find_d_quote2(s, s[i], i), &start, env_lst);
+			i = find_dollar_del(s, &str, i, find_last_quote_with_full_index(s, s[i], i), &start, env_lst);
 		}
 		else if (s[i] == '\'')
-			i = find_d_quote2(s, s[i], i);
+		{
+			i = find_last_quote_with_full_index(s, s[i], i);
+		}
 		else
-			i = find_dollar_del(s, &str, i, find_d_quotes(s, i), &start, env_lst);
+		{
+			i = find_dollar_del(s, &str, i, find_first_quote(s, i), &start, env_lst);
+		}
 	}
 	str = ft_strjoin(str, s, i, start);
-	printf("%s\n", str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filling_with_nulls.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/25 19:29:56 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:37:05 by vpetrosy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*filling_with_nulls(char *s)
 		{
 			quote = s[i];
 			s[i] = '\0';
-			i += find_d_quote(&s[i], quote);
+			i += find_last_quote(&s[i], quote);
 			s[i] = '\0';
 			null_count += 2;
 		}

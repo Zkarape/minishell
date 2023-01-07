@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 19:10:18 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/17 19:03:59 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:37:05 by vpetrosy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t	word_count(char *str)
 			while (str[i] && !ft_is_space(str[i]))
 			{
 				if (str[i] == '"' || str[i] == '\'')
-					i += find_d_quote(&str[i], str[i]);
+					i += find_last_quote(&str[i], str[i]);
 				i++;
 			}
 			count++;
@@ -72,7 +72,7 @@ char	*word_allocate(char *str)
 	while (str[i] && !ft_is_space(str[i]))
 	{
 		if (str[i] == '"' || str[i] == '\'')
-			i += find_d_quote(&str[i], str[i]);
+			i += find_last_quote(&str[i], str[i]);
 		i++;
 	}
 	str_malloc = (char *)malloc(sizeof(char) * (i + 1));
@@ -112,7 +112,7 @@ char	**ft_split(char *str)
 		while (*str && !ft_is_space(*str))
 		{
 			if (*str == '"' || *str == '\'')
-				str += find_d_quote(str, *str);
+				str += find_last_quote(str, *str);
 			str++;
 		}
 	}

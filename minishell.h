@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:37:36 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/27 21:11:18 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 21:39:58 by vpetrosy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef	struct	s_red
+# define HEREDOC 2
+# define INPUT_REDIRECTION 1
+# define OUTPUT_REDIRECTION 4
+# define APPEND_REDIRECTION 3
+
+typedef struct	s_red
 {
 	int				type;
 	char			*file;
@@ -93,12 +98,12 @@ char	*strcpy_noquotes(char *str, char c);
 t_list	*group_until_pipe(char *s);
 void	more_pipes(char *s);
 char	*ft_substr_m(char *s, int start, int end);
-int		find_d_quote(char *s, char quote);
+int		find_last_quote(char *s, char quote);
 void	lst_print(t_list *list);
 void	lst_add_last(t_list *list, char *data);
 t_node	*node_initialize(char *data);
 t_list	*lst_construct(void);
-int		find_d_quote(char *s, char quote);
+int		find_last_quote_with_full_index(char *s, char quote, int i);
 
 //file_for_red.c
 char	*filename_trim(char *s, int k);
@@ -108,7 +113,7 @@ void	func_for_reds(t_cmd *cmd_node, t_red *red_node);
 void	red_big_loop(t_red_lst *red_lst, t_cmd *cmd);
 
 //error_cases
-void	error_handling(int flag);
+void	ft_print_error_and_exit(char *error, int code);
 
 //group_until_reds.c
 t_cmd_lst		*cmd_lst_construct(void);
@@ -141,7 +146,7 @@ void		big_loop(t_cmd *cmd_node, t_red_lst *red_lst);
 
 //expanding.c
 int		is_quote(char c);
-int		find_d_quotes(char *s, int i);
+int		find_first_quote(char *s, int i);
 int		if_is_dollar(char *s, char **del, int i, int start, t_env_lst *env_lst);
 void	expand(char *s, t_cmd *cmd_node, t_env_lst *env_lst);
 int		find_dollar_del(char *s, char **str, int i, int q_idx, int *start, t_env_lst *env_lst);

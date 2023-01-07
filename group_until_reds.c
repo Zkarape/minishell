@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   group_until_reds.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/24 19:21:25 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/01/07 20:32:30 by zkarapet         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 //checking, ><, <<<
@@ -48,7 +36,7 @@ void	find_start_end(char *s, t_cmd *cmd_node, t_red_lst *red_lst)
 	while(s[++i])
 	{
 		if (s[i] == '\'' || s[i] == '"')
-			i += find_d_quote(&s[i], s[i]);
+			i += find_last_quote(&s[i], s[i]);
 		else if (is_red(s[i]))
 		{
 			str = ft_strjoin(str, s, i, end + 1);
@@ -84,7 +72,7 @@ void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
 	red_big_loop(red_lst, cmd_lst->tail);
 //	printf("trim == %s\n", );
 	red_lst_print(red_lst);
-	//from tail to 
+	//from tail to
 }
 
 t_cmd_lst	*grouping_with_red(t_list *pipe_group)

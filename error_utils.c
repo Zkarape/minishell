@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_cases.c                                      :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:49:04 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/19 16:32:45 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 22:02:51 by vpetrosy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_handling(int flag)
+void	ft_putstr(char *str)
 {
-	if (flag == 0)
-	{
-		write(2, "parse error, quote is not closed\n", 33);
-		exit(1);
-	}
-	else if (flag == 1)
-	{
-		write(2, "parse error near '|'\n", 20);
-		exit(1);
-	}
-	else if (flag == 2)
-	{
-		write(2, "parse error near '<'\n", 20);
-		exit(1);
-	}
-	else if (flag == 3)
-	{
-		write(2, "file not found'\n", 14);
-		exit(1);
-	}
+	int len;
+
+	len = ft_strlen(str);
+	write(1, str, len);
+}
+
+void	ft_print_error_and_exit(char *error, int code)
+{
+	ft_putstr(error);
+	exit(code);
 }

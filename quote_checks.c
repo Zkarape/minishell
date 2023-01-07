@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quote_checks.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:42:59 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/25 19:29:31 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 21:34:16 by vpetrosy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int find_d_unquoted(char *s)
+int find_unquoted(char *s)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ char	*strcpy_noquotes(char *str, char c)
 	j = 0;
 	while (str[++i])
 		if (str[i] == c)
-			count++;	
+			count++;
 	count = ft_strlen(str) - count;
 	cpy = malloc(sizeof(char) * count + 1);
 	if (!cpy)

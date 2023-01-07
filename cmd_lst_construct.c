@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_lst_construct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 22:03:26 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/24 22:03:38 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:24:58 by vpetrosy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,10 @@ void	more_reds(char *s, char c)
 	if (*s)
 	{
 		if (*(s) == c )
-			error_handling(2);
+			ft_print_error_and_exit("parse error near '<'\n", EXIT_FAILURE);
 		while (*s && *s == ' ')
 			s++;
 		if (*s == c)
-			error_handling(2);
+			ft_print_error_and_exit("parse error near '<'\n", EXIT_FAILURE);
 	}
 }
-

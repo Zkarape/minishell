@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   summerize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 21:13:41 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/27 19:57:02 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:37:05 by vpetrosy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_substr_m(char *s, int start, int end)
 	return (dst);
 }
 
-int	find_d_quote(char *s, char quote)
+int	find_last_quote(char *s, char quote)
 {
 	int	i;
 
@@ -48,11 +48,11 @@ void	more_pipes(char *s)
 	if (*s)
 	{
 		if (*(s) == '|')
-			error_handling(1);
+			ft_print_error_and_exit("parse error near '|'\n", EXIT_FAILURE);
 		while (*s && *s == ' ')
 			s++;
 		if (*s == '|')
-			error_handling(1);
+			ft_print_error_and_exit("parse error near '|'\n", EXIT_FAILURE);
 	}
 }
 
@@ -66,11 +66,11 @@ t_list	*group_until_pipe(char *s)
 	start = 0;
 	group = lst_construct();
 	if (s[0] == '|')
-		error_handling(1);
+		ft_print_error_and_exit("parse error near '|'\n", EXIT_FAILURE);
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
-			i += find_d_quote(&s[i], s[i]);
+			i += find_last_quote(&s[i], s[i]);
 		else if (s[i] == '|')
 		{
 			more_pipes(&s[i + 1]);
