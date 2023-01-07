@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 20:20:02 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/01/07 20:04:48 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:31:08 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,7 @@ char	*ft_strjoin(char *s1, char *s2, int start, int end)
 
 	i = 0;
 	len = ft_strlen(s1);
-//	if (start == end)
-//	{
-//	//	printf("yfhvg%d\n", start);
-//		return (NULL);
-//	}
-	dst = (char *)malloc((ft_strlen(s1) + start - end) * sizeof(char));
+	dst = (char *)malloc((len + start - end) * sizeof(char));
 	if (!dst)
 		return (NULL);
 	while (i < len)

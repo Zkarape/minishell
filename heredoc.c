@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/25 14:28:43 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 21:44:54 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	heredoc(t_red *red_node)
 	{
 		ft_putstr_fd(s, tmp_fd);
 		s = readline("> ");
+		//if (find_d_quotes(red_node->file, 0) == ft_strlen(red_node->file))
+		//	expand(s, );
 	}
 	//signal for ^C
 	return (tmp_fd);

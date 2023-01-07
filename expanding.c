@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:59:12 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/01/07 20:03:13 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 21:41:47 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,15 @@ int	find_del(char *s, char **del, int i, int start, t_env_lst *env_lst)
 		if (s[i] == '$')
 		{
 			*del = NULL;
-			printf("del == %s\n", *del);
 			return (i);
 		}
 		i++;
 		k++;
 	}
 	*del = ft_substr_m(s, start, start + k);
-	printf("del == %s\n", *del);
 	return (i);
 }
-
+//end is always on '$', start is 0, then it becomes the next of del
 int	find_dollar_del(char *s, char **str, int i, int q_idx, int *start, t_env_lst *env_lst)
 {
 	int		j;
@@ -92,19 +90,13 @@ int	find_dollar_del(char *s, char **str, int i, int q_idx, int *start, t_env_lst
 			i = find_del(s, &del, i, exp_start, env_lst);
 			if (!del)
 				end++;
-			printf("start == %d, end == %d, s[end] == %c\n", *start, end, s[end]);
 			*str = ft_strjoin(*str, s, end, *start);
 			*start = end + ft_strlen(del) + 1;
-			printf("start == %d, end == %d\n", *start, end);
 			*str = ft_strjoin(*str, get_env(env_lst, del), ft_strlen(get_env(env_lst, del)), 0);
-			printf("str == %s, i == %d\n", *str ,i);
 		}
 		else
-		{
 			i++;
-		}
 	}
-	printf("str == %s\n", *str);
 	return (i);
 }
 
@@ -121,17 +113,13 @@ void	expand(char *s, t_cmd *cmd_node, t_env_lst *env_lst)
 	{
 		if (s[i] == '"')
 		{
-			i = find_dollar_del(s, &str, i, find_d_quote2(s, s[i], i), &start, env_lst);
+			i = find_dollar_del(s, &str, i,
+				find_d_quote2(s, s[i], i), &start, env_lst);
 		}
 		else if (s[i] == '\'')
-		{
 			i = find_d_quote2(s, s[i], i);
-		}
 		else
-		{
-			printf("s[i] == %c\n", s[i]);
 			i = find_dollar_del(s, &str, i, find_d_quotes(s, i), &start, env_lst);
-		}
 	}
 	str = ft_strjoin(str, s, i, start);
 	printf("%s\n", str);

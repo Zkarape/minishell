@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:21:25 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/27 17:22:37 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:32:30 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	find_start_end(char *s, t_cmd *cmd_node, t_red_lst *red_lst)
 		}
 	}
 	cmd_node->args = ft_strjoin(str, s, i, end + 1);
+	printf("args == %s\n", cmd_node->args);
 }
 
 void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
@@ -80,7 +81,7 @@ void	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst)
 	find_start_end(s, cmd_lst->tail, red_lst);
 	cmd_lst->tail->red_lst = red_lst;
 	big_loop(cmd_lst->tail, red_lst);
-//	red_big_loop(red_lst, cmd_lst->tail);
+	red_big_loop(red_lst, cmd_lst->tail);
 //	printf("trim == %s\n", );
 	red_lst_print(red_lst);
 	//from tail to 

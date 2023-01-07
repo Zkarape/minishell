@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 19:13:04 by zkarapet          #+#    #+#             */
-/*   Updated: 2022/12/25 20:43:11 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:19:15 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*filename_trim(char *s, int k)
 	//file_trimmed = file;
 	//free(file);
 	file = filling_with_nulls(file);
+	printf("file == %s\n", file);
 	return (file);
 }
 
