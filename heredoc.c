@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 22:42:54 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:27:53 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,7 @@ int	big_loop(t_cmd *cmd, t_args *a)
 	{
 		if (cur->type == HEREDOC)
 		{
-			if (pipe_error(pipe(fd)))
-			{
-				closing_hdoc(fd, cmd, 0);
-				return (1);
-			}
+			hdoc_pipe_check(fd, cmd);
 			cmd->red_lst->heredoc_k--;
 			a->hdoc_size = cmd->red_lst->heredoc_k;
 			a->fd = fd;
