@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:17:11 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 17:24:46 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 22:26:46 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst, t_args *a)
 	cmd_lst->tail->yep = last_input_work(red_lst);
 	if (big_loop(cmd_lst->tail, a))
 	{
-		cmd_lst_destruct(&cmd_lst, cmd_lst->tail);
+		cmd_lst_destruct(&cmd_lst, NULL);
 		return (1);
 	}
 	return (0);

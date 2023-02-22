@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 19:23:33 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 22:42:54 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int	big_loop(t_cmd *cmd, t_args *a)
 {
 	t_red	*cur;
 	int		fd[2];
+	int		k;
 
+	k = 0;
 	cur = cmd->red_lst->head;
 	while (cur)
 	{
@@ -105,9 +107,11 @@ int	big_loop(t_cmd *cmd, t_args *a)
 			a->fd = fd;
 			a->file = cur->file;
 			if (heredoc(cmd, a))
-				return (1);
+				k = 1;
 			closing_hdoc(fd, cmd, 1);
 		}
+		if (k)
+			return (1);
 		cur = cur->next;
 	}
 	return (0);

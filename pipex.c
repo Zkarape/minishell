@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:29:04 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 20:47:39 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:15:22 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ pid_t	forking(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a)
 	if (pid == 0)
 	{
 		sig_control(0);
+		printf("childddddd========%d\n", g_status);
 		process(pipefd_in, pipefd_out, cur, a);
 	}
 	signal(SIGINT, SIG_IGN);

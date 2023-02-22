@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:59:23 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 19:51:24 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:14:56 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	sig_control(int a)
 	if (a == 0)
 	{
 		reset_term();
+		g_status = 290;
 		signal(SIGINT, SIG_DFL);
-		if (signal(SIGQUIT, SIG_DFL) == SIG_ERR)
-			perror("quited");
+		signal(SIGQUIT, SIG_DFL);
 	}
 	else if (a == 1)
 	{

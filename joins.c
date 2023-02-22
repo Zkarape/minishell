@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:36:24 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/20 15:54:16 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 21:45:46 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	*ft_strjoin_m(char *s1, char *s2)
 	if (join == NULL)
 		return (NULL);
 	i = 0;
-	while (*s1)
+	while (s1 && *s1)
 	{
 		join[i] = *s1;
 		s1++;
 		i++;
 	}
-	while (*s2)
+	while (s2 && *s2)
 	{
 		join[i] = *s2;
 		s2++;

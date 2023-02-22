@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 21:56:51 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 18:58:20 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 22:31:59 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_red	*red_node_initialize_pro(char *file, int type)
 		return (NULL);
 	node->type = type;
 	node->file = file;
-	printf("file  == %s\n", node->file);
 	node->next = NULL;
 	return (node);
 }

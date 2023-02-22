@@ -6,13 +6,11 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 21:09:46 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:16:12 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	g_status = 0;
 
 void	update_free(t_cmd_lst *cmd_lst, t_list *lst, char *s, t_args *a)
 {
@@ -62,6 +60,7 @@ void	parsing(t_args *args)
 	while (1)
 	{
 		sig_control(1);
+		printf("main==%d\n", g_status);
 		update_free(cmd_lst, lst, s, args);
 		s = readline("minishell$ ");
 		if (!s)
