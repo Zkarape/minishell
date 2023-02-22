@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/21 22:15:27 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:46:27 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,27 +101,28 @@ typedef struct s_env_lst
 
 typedef struct s_args
 {
-	int			i;
-	int			k;
-	int			k1;
-	int			q;
-	int			q_idx;
-	int			start;
-	int			end;
-	int			len;
-	int			exp_start;
-	t_env_lst	*env_lst;
-	t_env_lst	*exp_lst;
-	int			hdoc_flg;
-	int			hdoc_size;
-	int			*fd;
-	char		*file;
-	char		**env;
-	int			size;
-	int			cmd_lst_size;
-	int			(*pipefds)[2];
+	int				i;
+	int				k;
+	int				k1;
+	int				q;
+	int				ret;
+	int				q_idx;
+	int				start;
+	int				end;
+	int				len;
+	int				exp_start;
+	t_env_lst		*env_lst;
+	t_env_lst		*exp_lst;
+	int				hdoc_flg;
+	int				hdoc_size;
+	int				*fd;
+	char			*file;
+	char			**env;
+	int				size;
+	int				cmd_lst_size;
+	int				(*pipefds)[2];
 	pid_t			*pids;
-	struct termios		term;
+	struct termios	term;
 }	t_args;
 
 //group_until_reds.c
@@ -138,6 +139,9 @@ char		*str_return_trimmed(char *s, int start, int end, char *val);
 int			return_type(char c, char c_next);
 
 //pipeX
+int			pipefds_check(int (*pipefds)[2], int i, t_cmd *cur);
+void		processing_status(t_args *a, int size);
+void		checking_fork(t_args *a, pid_t forking, int i);
 void		execute(t_cmd *cmd, char **env);
 pid_t		forking(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a);
 void		process(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a);
@@ -154,8 +158,8 @@ char		**from_lst_to_dbl(t_env_lst *env_lst);
 int			ft_strcmp(char *s1, char *s2);
 
 //ft_split
-char			*ft_strdup(char *s1);
-void			*ft_memcpy(void *dest, void *src, size_t n);
+char		*ft_strdup(char *s1);
+void		*ft_memcpy(void *dest, void *src, size_t n);
 int			ft_is_space(char c);
 int			word_cpy(char *s_m, char *s, char quote);
 
@@ -202,7 +206,7 @@ void		ft_putstr(char *str);
 void		dup_error(int du);
 
 //utils.c
-void		close_pipefds(int (*pipefds)[2], int i, t_cmd *cur, int	cl_cur);
+void		close_pipefds(int (*pipefds)[2], int i, t_cmd *cur, int cl_cur);
 char		*ft_strjoin(char *s1, char *s2, t_args *a);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 void		ft_putstr_fd(char *s, int fd, int fl);
@@ -216,7 +220,7 @@ char		*clean_fst_last(char *s);
 char		*filling_without_c(char *s, char c, int len, int count);
 char		*filling_with_nulls(char *s);
 //heredoc.c
-int		heredoc(t_cmd *cmd, t_args *a);
+int			heredoc(t_cmd *cmd, t_args *a);
 void		red_lst_print(t_red_lst *list);
 t_red_lst	*red_lst_construct(void);
 t_red		*red_node_initialize(void);
@@ -249,7 +253,7 @@ void		env_lst_print(t_env_lst *list);
 t_env_lst	*getting_env(char **env);
 
 //parsing.c
-void		parsing(char **env, t_args *args);
+void		parsing(t_args *args);
 void		cmd_expanded(t_cmd_lst *cmd_lst, t_args *args);
 void		cmd_quote_clear(t_cmd_lst *cmd_lst);
 
@@ -308,7 +312,7 @@ void		redirections(t_cmd_lst *lst);
 void		pipefds_free(pid_t (*piefds)[2]);
 void		env_lst_destruct(t_env_lst **list);
 void		lst_destruct(t_list **list);
-void		free_a(t_args *a, int f);
+void		free_a(t_args *a);
 void		dbl_free(char **arr);
 void		cmd_def_free(t_cmd *node);
 void		cmd_lst_destruct(t_cmd_lst **list, t_cmd *until);

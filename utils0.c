@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:29:46 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/01 15:29:49 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:01:36 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,30 @@ int	is_alpha(char c)
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		return (1);
 	return (0);
+}
+
+void	close_pipefds(int (*pipefds)[2], int i, t_cmd *cur, int cl_cur)
+{
+	int	j;
+
+	j = -1;
+	while (++j < i)
+	{
+		close(pipefds[j][0]);
+		close(pipefds[j][1]);
+	}
+	if (cl_cur)
+		closing(cur);
+}
+
+int	last_pipe_check(char *s)
+{
+	int	i;
+
+	i = ft_strlen(s) - 1;
+	while (i >= 0 && ft_is_space(s[i]))
+		i--;
+	if (i >= 0 && s[i] == '|')
+		return (0);
+	return (1);
 }

@@ -6,67 +6,11 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:54:15 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 19:01:27 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:42:56 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	g_status = 0;
-
-void	parsing(char **env_, t_args *args)
-{
-	char		*s;
-	int		ret;
-	t_list		*lst;
-	t_cmd_lst	*cmd_lst;
-
-	s = NULL;
-	lst = NULL;
-	cmd_lst = NULL;
-	ret = 0;
-	args->env_lst = getting_env(env_);
-	args->exp_lst = env_lst_construct();
-	args->exp_lst = exp_cpy_env(args);
-	env_lst_add_last(args->exp_lst, "declare -x ?=\"0\"");
-	while (1)
-	{
-		sig_control(1);
-		update_status(args);
-		free_a(args, ret);
-		free(s);
-		lst_destruct(&lst);
-		cmd_lst_destruct(&cmd_lst, NULL);
-		printf("heeey\n");
-		s = readline("minishell$ ");
-		if (!s)
-		{
-			write(1, "exit\n", 5);
-			exit(g_status);
-		}
-		if (parsing_error_checks(s))
-			continue ;
-		add_history(s);
-		lst = group_until_pipe(s);
-		if (!lst)
-		{
-			g_status = 1;
-			continue ;
-		}
-		cmd_lst = grouping_with_red(lst, args);
-		if (!cmd_lst)
-		{
-			g_status = 1;
-			continue ;
-		}
-		cmd_expanded(cmd_lst, args);
-		cmd_quote_clear(cmd_lst);
-		args->env = from_lst_to_dbl(args->env_lst);
-		if (cmd_lst->size == 1 && cmd_lst->head->args[0]  && build(cmd_lst->head, args))
-			continue ;
-		ret = pipex_main(cmd_lst, args);
-	}
-}
 
 void	cmd_expanded(t_cmd_lst *cmd_lst, t_args *args)
 {
@@ -121,23 +65,12 @@ void	update_status(t_args *a)
 		cur = cur->next;
 	}
 	itoa = ft_itoa(g_status);
-	duped = ft_strdup("declare -x ?=\""); 
+	duped = ft_strdup("declare -x ?=\"");
 	joined = ft_strjoin3(duped, itoa, "\"");
 	env_lst_add_last(a->exp_lst, joined);
 	free(joined);
 	free(duped);
 	free(itoa);
-}
-
-void	printer(char **s)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-	{
-		printf("%s\n", s[i]);
-	}
 }
 
 void	cmd_quote_clear(t_cmd_lst *cmd_lst)

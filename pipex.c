@@ -6,56 +6,15 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:29:04 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 19:08:14 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:47:39 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void checking_fork(t_args *a, pid_t forking, int i)
-{
-	int j;
-
-	j = -1;
-	a->pids[i + 1] = forking;
-	if (forking < 0)
-	{
-		while (a->pids[++j] != a->pids[i + 1])
-			kill(a->pids[j], 0);
-	}
-}
-// A process terminates normally when its program signals it is done by calling exit. Returning from main is equivalent to calling exit, and the value that main returns is used as the argument to exit. WIFEXITED(status) checks if child terminated normally, WEXITSTATUS(status) generates exit status of child, WTERMSIG(status) macro returns the numeric value of the signal that was raised by the child process
-
-void processing_status(t_args *a, int size)
-{
-	pid_t pid;
-	int i;
-	int status;
-
-	i = -1;
-	status = 0;
-	while (++i < size)
-	{
-		pid = waitpid(-1, &status, 0);
-		if (pid == a->pids[size - 1])
-		{
-			if (!WTERMSIG(status)) // child completed successfully
-				g_status = WEXITSTATUS(status);
-			else // terminated with failure
-			{
-				g_status = WTERMSIG(status) + 128;
-				if (g_status == 130)
-					write(1, "\n", 1);
-				else if (g_status == 131)
-					ft_putstr_fd("Quit 3", 1, 1);
-			}
-		}
-	}
-}
-
 int	forking_separately(t_args *a, t_cmd *cur, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	a->size = size - 1;
@@ -68,7 +27,8 @@ int	forking_separately(t_args *a, t_cmd *cur, int size)
 		cur = cur->next;
 		while (cur->next)
 		{
-			checking_fork(a, forking(a->pipefds[i][0], a->pipefds[i + 1][1], cur, a), i);
+			checking_fork(a, forking(a->pipefds[i][0],
+					a->pipefds[i + 1][1], cur, a), i);
 			if (i < size - 2)
 				i++;
 			cur = cur->next;
@@ -79,10 +39,10 @@ int	forking_separately(t_args *a, t_cmd *cur, int size)
 	return (0);
 }
 
-int pipex_main(t_cmd_lst *cmd_lst, t_args *a)
+int	pipex_main(t_cmd_lst *cmd_lst, t_args *a)
 {
-	int	i;
-	int	(*pipefds)[2];
+	int		i;
+	int		(*pipefds)[2];
 	t_cmd	*cur;
 
 	i = -1;
@@ -96,12 +56,8 @@ int pipex_main(t_cmd_lst *cmd_lst, t_args *a)
 		pipefds = malloc(sizeof(int *) * (cmd_lst->size - 1));
 	while (++i < cmd_lst->size - 1)
 	{
-		if (pipe_error(pipe(pipefds[i])))
-		{
-			close_pipefds(pipefds, i, cur, 1);
-			pipefds_free(pipefds);
+		if (pipefds_check(pipefds, i, cur))
 			return (1);
-		}
 	}
 	a->pipefds = pipefds;
 	forking_separately(a, cur, cmd_lst->size);
@@ -111,9 +67,9 @@ int pipex_main(t_cmd_lst *cmd_lst, t_args *a)
 	return (0);
 }
 
-pid_t forking(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a)
+pid_t	forking(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
@@ -126,10 +82,10 @@ pid_t forking(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a)
 	return (pid);
 }
 
-void process(int pipefd_in, int pipefd_out, t_cmd *cmd, t_args *a)
+void	process(int pipefd_in, int pipefd_out, t_cmd *cmd, t_args *a)
 {
-	int i;
-	int b;
+	int	i;
+	int	b;
 
 	i = -1;
 	b = 0;
@@ -154,16 +110,15 @@ void process(int pipefd_in, int pipefd_out, t_cmd *cmd, t_args *a)
 		exit(g_status);
 }
 
-void execute(t_cmd *cmd, char **env)
+void	execute(t_cmd *cmd, char **env)
 {
-	char *paths;
-	char **path;
-	char *absolue_path;
-	int i;
+	char	*paths;
+	char	**path;
+	char	*absolue_path;
+	int		i;
 
 	i = 0;
 	absolue_path = NULL;
-
 	execve(cmd->no_cmd[0], cmd->no_cmd, env);
 	paths = get_environment("PATH=", env);
 	path = split(paths, ':');
@@ -176,8 +131,5 @@ void execute(t_cmd *cmd, char **env)
 			free(absolue_path);
 		}
 	}
-	perror(cmd->no_cmd[0]);
-	g_status = 127;
-	exit(127);
-//	ft_print_error_and_exit("cmd not found\n", 127);
+	ft_print_error_and_exit("cmd not found\n", 127);
 }

@@ -6,21 +6,19 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:41:39 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 19:23:43 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:35:17 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_a(t_args *a, int f)
+void	free_a(t_args *a)
 {
 	dbl_free(a->env);
-	if (!f)
+	if (!a->ret)
 		pipefds_free(a->pipefds);
-//	free(a->file);
 	free(a->pids);
 	a->env = NULL;
-//	a->file = NULL;
 	a->pids = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:42:59 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/21 22:08:54 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:50:15 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +87,27 @@ char	*adding_quotes(char *s)
 	return (dst);
 }
 
-char *removing_fst_lst_dbl_quotes(char *s)
-{       
-	char *dst;
-	int len;
-	int i;
-	int j;
+char	*removing_fst_lst_dbl_quotes(char *s)
+{
+	char	*dst;
+	int		len;
+	int		i;
+	int		j;
 
 	len = strlen(s);
-	if (len < 2) {
-		return NULL; // invalid input
-	}
+	if (len < 2)
+		return (NULL);
 	dst = malloc(sizeof(char) * (len - 1));
-	if (dst == NULL) {
-		return NULL; // memory allocation failed
-	}
+	if (dst == NULL)
+		return (NULL);
 	i = 1;
 	j = 0;
-	while (i < len - 1) { // skip first and last quotes
+	while (i < len - 1)
+	{
 		dst[j] = s[i];
 		j++;
 		i++;
 	}
 	dst[j] = '\0';
-	return dst;
+	return (dst);
 }

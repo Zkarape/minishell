@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:17:00 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 18:51:31 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:33:38 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*file_trim(char *s, int k, int type)
 
 	i = 0;
 	file_trimmed = NULL;
-	file = NULL;
 	if (k < 0)
 		return (NULL);
 	file = malloc(sizeof(char) * (k + 1));

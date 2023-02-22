@@ -6,7 +6,7 @@
 /*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 21:13:41 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/19 21:05:40 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:59:02 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,28 @@ int	more_pipes(char *s)
 	return (0);
 }
 
+int	pipe_check(char *s, t_list *group, int i, int f)
+{
+	if (f == 0)
+	{
+		if (more_pipes(&s[i + 1]))
+		{
+			lst_destruct(&group);
+			return (1);
+		}
+	}
+	else if (f)
+	{
+		if (s && s[0] == '|')
+		{
+			free(group);
+			ft_putstr("parse error near '|'\n");
+			return (1);
+		}
+	}
+	return (0);
+}
+
 t_list	*group_until_pipe(char *s)
 {
 	int		i;
@@ -71,23 +93,16 @@ t_list	*group_until_pipe(char *s)
 	i = 0;
 	start = 0;
 	group = lst_construct();
-	if (s && s[0] == '|')
-	{
-		free(group);
-		ft_putstr("parse error near '|'\n");
+	if (pipe_check(s, group, i, 1))
 		return (NULL);
-	}
 	while (s && s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
 			i += find_last_quote(&s[i], s[i]);
 		else if (s[i] == '|')
 		{
-			if (more_pipes(&s[i + 1]))
-			{
-				lst_destruct(&group);
+			if (pipe_check(s, group, i, 0))
 				return (NULL);
-			}
 			lst_add_last(group, ft_substr_m(s, start, i));
 			start = i + 1;
 		}

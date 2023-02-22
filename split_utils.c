@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:02:39 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/01/27 19:03:04 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:51:54 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,32 +67,4 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(ptr, count * size);
 	return (ptr);
-}
-
-char	*ft_strdup(char *s1)
-{
-	char	*dst;
-
-	dst = malloc(ft_strlen(s1) + 1);
-	if (dst == NULL)
-		return (NULL);
-	dst[ft_strlen(s1)] = '\0';
-	return (ft_memcpy(dst, s1, ft_strlen(s1)));
-}
-
-void	*ft_memcpy(void *dest, void *src, size_t n)
-{
-	char	*src_temp;
-	char	*dest_temp;
-	size_t	i;
-
-	src_temp = (char *)src;
-	dest_temp = (char *)dest;
-	i = 0;
-	while (i < n)
-	{
-		dest_temp[i] = src_temp[i];
-		i++;
-	}
-	return (dest_temp);
 }
