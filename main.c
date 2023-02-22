@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 23:51:24 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:02:01 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 	a->env = from_lst_to_dbl(a->env_lst);
 	if ((*cmd_lst)->size == 1 && (*cmd_lst)->head->args[0]
 			&& build((*cmd_lst)->head, a))
+	{
+		a->ret = 1;
 		return (1);
+	}
 	return (0);
 }
 
@@ -71,6 +74,7 @@ void	parsing(t_args *args)
 		if (parsing_part(s, args, &cmd_lst, &lst))
 			continue ;
 		args->ret = pipex_main(cmd_lst, args);
+		printf("args->ret == %d\n", args->ret);
 	}
 }
 
@@ -88,6 +92,7 @@ void	a_init(t_args *a, char **env_)
 	a->pipefds = NULL;
 	a->env = NULL;
 	a->pids = NULL;
+	a->ret = 0;
 }
 
 int	main(int ac, char **av, char **env)
