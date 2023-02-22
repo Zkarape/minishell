@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 00:26:25 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:33:08 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void		process(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a);
 int			pipex_main(t_cmd_lst *cmd_lst, t_args *a);
 int			pipe_error(int pip);
 //utils
-void		hdoc_pipe_check(int fd[2], t_cmd *cmd);
+int			hdoc_pipe_check(int fd[2], t_cmd *cmd);
 int			ft_tolower(int c);
 char		*get_environment(char *name, char **env);
 char		*ft_strjoin_m(char *s1, char *s2);

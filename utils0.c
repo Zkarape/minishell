@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:29:46 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/23 00:27:54 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:32:09 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int	is_alpha(char c)
 	return (0);
 }
 
-void	hdoc_pipe_check(int fd[2], t_cmd *cmd)
+int	hdoc_pipe_check(int fd[2], t_cmd *cmd)
 {
 	if (pipe_error(pipe(fd)))
 	{
 		closing_hdoc(fd, cmd, 0);
 		return (1);
 	}
+	return (0);
 }
 
 void	close_pipefds(int (*pipefds)[2], int i, t_cmd *cur, int cl_cur)
