@@ -6,19 +6,19 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 23:16:12 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:51:24 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_free(t_cmd_lst *cmd_lst, t_list *lst, char *s, t_args *a)
+void	update_free(t_cmd_lst **cmd_lst, t_list **lst, char *s, t_args *a)
 {
 	update_status(a);
 	free_a(a);
 	free(s);
-	lst_destruct(&lst);
-	cmd_lst_destruct(&cmd_lst, NULL);
+	lst_destruct(lst);
+	cmd_lst_destruct(cmd_lst, NULL);
 }
 
 int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
@@ -41,7 +41,7 @@ int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 	cmd_quote_clear(*cmd_lst);
 	a->env = from_lst_to_dbl(a->env_lst);
 	if ((*cmd_lst)->size == 1 && (*cmd_lst)->head->args[0]
-		&& build((*cmd_lst)->head, a))
+			&& build((*cmd_lst)->head, a))
 		return (1);
 	return (0);
 }
@@ -60,8 +60,7 @@ void	parsing(t_args *args)
 	while (1)
 	{
 		sig_control(1);
-		printf("main==%d\n", g_status);
-		update_free(cmd_lst, lst, s, args);
+		update_free(&cmd_lst, &lst, s, args);
 		s = readline("minishell$ ");
 		if (!s)
 		{
@@ -77,10 +76,13 @@ void	parsing(t_args *args)
 
 void	a_init(t_args *a, char **env_)
 {
+	char	*s;
+
+	s = ft_strdup("declare -x ?=\"0\"");
 	a->env_lst = getting_env(env_);
 	a->exp_lst = env_lst_construct();
 	a->exp_lst = exp_cpy_env(a);
-	env_lst_add_last(a->exp_lst, "declare -x ?=\"0\"");
+	env_lst_add_last(a->exp_lst, s);
 	a->fd = NULL;
 	a->file = NULL;
 	a->pipefds = NULL;

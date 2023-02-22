@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 23:04:29 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:35:24 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,4 +317,5 @@ void		dbl_free(char **arr);
 void		cmd_def_free(t_cmd *node);
 void		cmd_lst_destruct(t_cmd_lst **list, t_cmd *until);
 void		printer(char **s);
+void		update_free(t_cmd_lst **cmd_lst, t_list **lst, char *s, t_args *a);
 #endif
