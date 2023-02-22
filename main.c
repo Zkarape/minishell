@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 20:54:19 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/22 21:09:46 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,27 @@ void	update_free(t_cmd_lst *cmd_lst, t_list *lst, char *s, t_args *a)
 	cmd_lst_destruct(&cmd_lst, NULL);
 }
 
-int	parsing_part(char *s, t_args *a, t_cmd_lst *cmd_lst, t_list *lst)
+int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 {
 	if (parsing_error_checks(s))
 		return (1);
-	lst = group_until_pipe(s);
-	if (!lst)
+	*lst = group_until_pipe(s);
+	if (!lst || !(*lst))
 	{
 		g_status = 1;
 		return (1);
 	}
-	cmd_lst = grouping_with_red(lst, a);
-	printf("head === %s\n", cmd_lst->head->args);
-	if (!cmd_lst)
+	*cmd_lst = grouping_with_red(*lst, a);
+	if (!cmd_lst || !(*cmd_lst))
 	{
 		g_status = 1;
 		return (1);
 	}
-	cmd_expanded(cmd_lst, a);
-	cmd_quote_clear(cmd_lst);
+	cmd_expanded(*cmd_lst, a);
+	cmd_quote_clear(*cmd_lst);
 	a->env = from_lst_to_dbl(a->env_lst);
-	if (cmd_lst->size == 1 && cmd_lst->head->args[0]
-		&& build(cmd_lst->head, a))
+	if ((*cmd_lst)->size == 1 && (*cmd_lst)->head->args[0]
+		&& build((*cmd_lst)->head, a))
 		return (1);
 	return (0);
 }
@@ -71,10 +70,8 @@ void	parsing(t_args *args)
 			exit(g_status);
 		}
 		add_history(s);
-		printf("xiiiiiiiiii\n");
-		if (parsing_part(s, args, cmd_lst, lst))
+		if (parsing_part(s, args, &cmd_lst, &lst))
 			continue ;
-		printf("head === %s\n", cmd_lst->head->args);
 		args->ret = pipex_main(cmd_lst, args);
 	}
 }
