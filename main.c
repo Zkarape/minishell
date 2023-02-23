@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/23 21:30:09 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:22:23 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	parsing(t_args *args)
 			write(1, "exit\n", 5);
 			exit(g_status);
 		}
-		add_history(s);
+		if (*s)
+			add_history(s);
 		if (parsing_part(s, args, &cmd_lst, &lst))
 			continue ;
 		args->ret = pipex_main(cmd_lst, args);
@@ -89,6 +90,8 @@ void	a_init(t_args *a, char **env_)
 	a->env = NULL;
 	a->pids = NULL;
 	a->ret = 0;
+	a->k = 0;
+	a->k1 = 0;
 }
 
 int	main(int ac, char **av, char **env)
@@ -100,5 +103,6 @@ int	main(int ac, char **av, char **env)
 	args = malloc(sizeof(t_args));
 	a_init(args, env);
 	parsing(args);
+//	free(args);
 	return (0);
 }

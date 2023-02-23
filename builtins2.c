@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:05:06 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 22:52:58 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:19:36 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	error_checks_for_var(char *s, int until, int flag)
 	int	i;
 
 	i = 0;
+	printf("until == %d, i == %c\n", until, s[until]);
 	if ((!s || s[0] == '_') && flag)
 		return (0);
 	if (!is_alpha(s[0]))
@@ -29,6 +30,7 @@ int	error_checks_for_var(char *s, int until, int flag)
 	{
 		if (!is_num(s[i]) && s[i] != '_' && !is_alpha(s[i]))
 		{
+			printf("aaaaaaaaaaaaaaa\n");
 			ft_putstr(s);
 			ft_putstr(": not a valid identifier\n");
 			return (1);

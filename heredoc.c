@@ -6,30 +6,30 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 22:00:31 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:19:36 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	
 
-void	heredoc_utils(t_cmd *cmd, t_args *a, char *s)
+void	heredoc_utils(t_cmd *cmd, t_args *a, char **s)
 {
 	char	*tmp;
 
 	tmp = NULL;
-	printf("file == %d\n", find_d_quotes(a->file, 0));
 	if (find_d_quotes(a->file, 0) == ft_strlen(a->file))
 	{
-		printf("smthhhhh\n");
-		tmp = hdoc_expand(s, a);
-		free(s);
-		s = tmp;
+		tmp = hdoc_expand(*s, a);
+		free(*s);
+		*s = tmp;
 	}
 	if (cmd->yep && a->hdoc_size == 0)
 	{
-		ft_putstr_fd(s, a->fd[1], 1);
+		ft_putstr_fd(*s, a->fd[1], 1);
 		cmd->hdoc_fd = a->fd[0];
 	}
+//	free(tmp);
+	*s = NULL;
 }
 
 int	status_check(char *cleaned_file, char *s)
@@ -67,7 +67,7 @@ int	heredoc(t_cmd *cmd, t_args *a)
 		if (!(ft_strncmp(cleaned_file, s, len)
 				!= 0 || s[0] == '\0'))
 			break ;
-		heredoc_utils(cmd, a, s);
+		heredoc_utils(cmd, a, &s);
 		free(s);
 	}
 	if (cmd->hdoc_fd == -1 && cmd->yep && a->hdoc_size == 0)

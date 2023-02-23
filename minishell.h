@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 20:47:48 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:54:23 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,7 @@ t_env_lst	*env_lst_construct(void);
 void		env_lst_add_last(t_env_lst *list, char *data);
 t_env		*env_def_initialize(void);
 void		env_lst_print(t_env_lst *list);
+void		exp_lst_print(t_env_lst *list);
 
 //environment.c
 t_env_lst	*getting_env(char **env);

@@ -1,16 +1,16 @@
 UNAME = $(shell uname -s)
 NAME = minishell
 CC = cc
-CFLAGS =  -I ./readline-zkarapet/include -g -ggdb3 -Wall -Wextra  -fsanitize=address
-PREFIX = "${shell find ${HOME} -name readline-zkarapet 2>/dev/null}"
+CFLAGS = -I ./readline-zkarapet/include -g -ggdb3 -Wall -Wextra -fsanitize=address
+#PREFIX = "${shell find ${HOME} -name PM/readline-zkarapet 2>/dev/null}"
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 
 READLINE = -lreadline 
 
-ifneq ($(UNAME), Linux)
-	READLINE += -L readline-zkarapet/lib 
-endif
+#ifneq ($(UNAME), Linux)
+#	READLINE += -L readline-zkarapet/lib 
+#endif
 
 all: $(NAME)
 
@@ -18,7 +18,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -o $@ -c $< 
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(READLINE) -o $(NAME)
+	$(CC) $(READLINE) $(CFLAGS) $(OBJS) -o $(NAME)
 
 lib:
 	cd libft && make 
@@ -31,7 +31,7 @@ fclean: clean
 
 re: fclean all
 
-readline:
-	cd readline-master && ./configure --prefix=$(PREFIX)/ && make clean && make && make install
+#readline:
+#	cd readline-master && ./configure --prefix=$(PREFIX)/ && make clean && make && make install
 
 .PHONY: all clean fclean re lib readline

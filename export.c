@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 21:39:09 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/21 22:08:03 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/24 01:01:10 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	ft_export(t_cmd *cmd, t_args *a)
 		f = is_in_export_or_not(cmd->no_cmd[i], val, a);
 		if (f == 1)
 			return (1);
-		if (f == 2)
+		if (f == 0)
+		{
 			export_pars(cmd->no_cmd[i], a);
+		}
 		if (val)
 		{
 			env_cur = is_in_env_or_not(a->env_lst, cmd->no_cmd[i]);
@@ -37,7 +39,7 @@ int	ft_export(t_cmd *cmd, t_args *a)
 	}
 	sort(a->exp_lst);
 	if (!cmd->no_cmd[1])
-		env_lst_print(a->exp_lst);
+		exp_lst_print(a->exp_lst);
 	return (0);
 }
 
@@ -83,6 +85,7 @@ t_env_lst	*exp_cpy_env(t_args *a)
 
 int	cmp_remove(int k, t_env *cur, t_env_lst *exp_lst, char *arg)
 {
+	printf("arg == %s, data == %s, k == %d\n", arg, &cur->data[11], k);
 	if (!ft_strncmp(&cur->data[11], arg, k))
 	{
 		remove_from_between(cur, exp_lst);
@@ -94,26 +97,31 @@ int	cmp_remove(int k, t_env *cur, t_env_lst *exp_lst, char *arg)
 int	is_in_export_or_not(char *arg, char *val, t_args *a)
 {
 	t_env	*cur;
+	t_env	*tmp;
 
 	cur = a->exp_lst->head->next;
 	a->q = 0;
+	tmp = NULL;
 	while (cur->next)
 	{
-		a->k = until_equal_sign(&cur->data[11]);
-		if (error_checks_for_var(&cur->data[11], a->k, 0))
+		tmp = cur->next;
+		a->k = until_equal_sign(arg);
+		printf("a->k == %d\n", a->k);
+		if (error_checks_for_var(arg, a->k, 0))
 			return (1);
-		a->k1 = until_equal_sign(arg);
+		a->k1 = until_equal_sign(&cur->data[11]);
 		if (a->k1 > a->k)
 			a->k = a->k1;
 		if (!(*(cur->data + 11 + a->k) == '='
 				&& !val && !ft_strncmp(&cur->data[11], arg, a->k)))
 		{
+			//remove_from_between(cur, a->exp_lst);
 			if (cmp_remove(a->k, cur, a->exp_lst, arg))
 				break ;
 			else
 				a->q++;
 		}
-		cur = cur->next;
+		cur = tmp;
 	}
 	if (a->q == a->exp_lst->size)
 		return (2);

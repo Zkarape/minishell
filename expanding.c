@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:24:09 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 21:58:59 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:23:41 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,16 @@ char	*hdoc_expand(char *s, t_args *args)
 	char	*str;
 
 	str = NULL;
-	args->i = -1;
+	args->i = 0;
 	args->start = 0;
 	args->hdoc_flg = 1;
 	while (s && s[args->i])
 	{
 		args->q_idx = find_d_quotes(s, args->i);
-		str = find_dollar_del(s, args);
+		str = find_dollar_del(s, args);	
+		if (s[args->i])
+			args->i++;
 	}
 	str = ft_strjoin2(str, s, args->i, args->start);
-	printf("str == %s\n", str);
 	return (str);
 }

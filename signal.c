@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:59:23 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 23:14:56 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 22:36:30 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	sigint_handler(int sig)
 	{
 		g_status = 1;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
+	//	rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 }
@@ -71,7 +71,7 @@ void	sig_handler_hdoc(int sig)
 	{
 		g_status = -42;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
+	//	rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 }
