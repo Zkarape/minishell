@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:53:08 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/21 21:58:20 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:59:47 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	find_d_quote2(char *s, char quote, int i)
 
 int	find_d_quotes(char *s, int i)
 {
-	while (s[i])
+	while (s && s[i])
 	{
 		if (is_quote(s[i + 1]) || !s[i + 1])
 		{

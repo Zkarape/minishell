@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/23 00:29:55 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:30:09 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 	cmd_expanded(*cmd_lst, a);
 	cmd_quote_clear(*cmd_lst);
 	a->env = from_lst_to_dbl(a->env_lst);
-	if ((*cmd_lst)->size == 1 && (*cmd_lst)->head->args[0]
-		&& build((*cmd_lst)->head, a))
+	if ((*cmd_lst)->size == 1 && (*cmd_lst)->head->no_cmd
+		&& (*cmd_lst)->head->no_cmd[0] && build((*cmd_lst)->head, a))
 	{
 		a->ret = 1;
 		return (1);

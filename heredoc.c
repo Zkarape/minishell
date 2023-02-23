@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 20:55:59 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 22:00:31 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	heredoc_utils(t_cmd *cmd, t_args *a, char *s)
 	char	*tmp;
 
 	tmp = NULL;
-	if (find_d_quotes(a->file, 0) == ft_strlen(a->file) - 1)
+	printf("file == %d\n", find_d_quotes(a->file, 0));
+	if (find_d_quotes(a->file, 0) == ft_strlen(a->file))
 	{
+		printf("smthhhhh\n");
 		tmp = hdoc_expand(s, a);
 		free(s);
 		s = tmp;
@@ -46,6 +48,7 @@ int	heredoc(t_cmd *cmd, t_args *a)
 {
 	char	*s;
 	char	*cleaned_file;
+	int		len;
 
 	s = NULL;
 	cleaned_file = filling_with_nulls(a->file);
@@ -57,7 +60,11 @@ int	heredoc(t_cmd *cmd, t_args *a)
 			break ;
 		if (status_check(cleaned_file, s))
 			return (1);
-		if (!(ft_strncmp(cleaned_file, s, ft_strlen(s))
+		if (ft_strlen(cleaned_file) > ft_strlen(s))
+			len = ft_strlen(cleaned_file);
+		else
+			len = ft_strlen(s);
+		if (!(ft_strncmp(cleaned_file, s, len)
 				!= 0 || s[0] == '\0'))
 			break ;
 		heredoc_utils(cmd, a, s);

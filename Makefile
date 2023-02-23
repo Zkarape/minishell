@@ -1,7 +1,7 @@
 UNAME = $(shell uname -s)
 NAME = minishell
 CC = cc
-CFLAGS =  -I ./readline-zkarapet/include -g -ggdb3 -Wall -Wextra  #-fsanitize=address
+CFLAGS =  -I ./readline-zkarapet/include -g -ggdb3 -Wall -Wextra  -fsanitize=address
 PREFIX = "${shell find ${HOME} -name readline-zkarapet 2>/dev/null}"
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
