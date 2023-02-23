@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:35:56 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/18 19:44:28 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:58:03 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ char	*ft_str_tolower(char **s)
 	int		i;
 
 	i = -1;
-	while ((*s)[++i])
+	while (s && *s && (*s)[++i])
 	{
-		if (!ft_tolower((*s)[i]))
+	//	if (!ft_tolower((*s)[i]))
 			ft_tolower((*s)[i]);
 	}
 	return (*s);

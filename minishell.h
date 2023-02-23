@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 00:33:08 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:47:48 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void		redirections(t_cmd_lst *lst);
 t_cmd_lst	*cmd_lst_construct(void);
 void		cmd_lst_print(t_cmd_lst *list);
 void		cmd_lst_add_last(t_cmd_lst *list);
+void		closing_hdoc(int fd[2], t_cmd *cmd, int flag);
 int			heredoc_cycle(t_cmd_lst *cmd_lst, t_args *a);
 t_cmd_lst	*grouping_with_red(t_list *pipe_group, t_args *a);
 int			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst, t_args *a);
