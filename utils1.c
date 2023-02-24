@@ -36,6 +36,20 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+int	ft_strcmp_with_free(char *s1, char *s2)
+{
+	int	i;
+	int	res;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	res = s1[i] - s2[i];
+	free(s1);
+	free(s2);
+	return (res);
+}
+
 char	*ft_strcpy(char *dest, char *src)
 {
 	char	*temp;

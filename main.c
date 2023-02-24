@@ -43,23 +43,21 @@ int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 	if ((*cmd_lst)->size == 1 && (*cmd_lst)->head->no_cmd
 		&& (*cmd_lst)->head->no_cmd[0] && build((*cmd_lst)->head, a))
 	{
-		a->ret = 1;
+	//	a->ret = 1;
 		return (1);
 	}
 	return (0);
 }
 
-void	parsing(t_args *args)
+void	exec_d_parsed(t_args *args)
 {
 	char		*s;
-	int			ret;
 	t_list		*lst;
 	t_cmd_lst	*cmd_lst;
 
 	s = NULL;
 	lst = NULL;
 	cmd_lst = NULL;
-	ret = 0;
 	while (1)
 	{
 		sig_control(1);
@@ -73,7 +71,10 @@ void	parsing(t_args *args)
 		if (*s)
 			add_history(s);
 		if (parsing_part(s, args, &cmd_lst, &lst))
+		{
+			args->ret = 1;
 			continue ;
+		}
 		args->ret = pipex_main(cmd_lst, args);
 	}
 }
@@ -89,9 +90,7 @@ void	a_init(t_args *a, char **env_)
 	a->pipefds = NULL;
 	a->env = NULL;
 	a->pids = NULL;
-	a->ret = 0;
-	a->k = 0;
-	a->k1 = 0;
+	a->ret = 1;
 }
 
 int	main(int ac, char **av, char **env)
@@ -102,7 +101,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	args = malloc(sizeof(t_args));
 	a_init(args, env);
-	parsing(args);
+	exec_d_parsed(args);
 //	free(args);
 	return (0);
 }

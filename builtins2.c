@@ -29,7 +29,6 @@ int	error_checks_for_var(char *s, int until, int flag)
 	{
 		if (!is_num(s[i]) && s[i] != '_' && !is_alpha(s[i]))
 		{
-			printf("aaaaaaaaaaaaaaa\n");
 			ft_putstr(s);
 			ft_putstr(": not a valid identifier\n");
 			return (1);

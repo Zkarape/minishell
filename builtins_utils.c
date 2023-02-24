@@ -34,11 +34,13 @@ char	*after_equal_str(char *s)
 
 char	*before_equal(char *s)
 {
-	return (ft_substr_m(s, 0, until_equal_sign(s) + 1));
+	return (ft_substr_m(s, 0, until_equal_sign(s)));
 }
 
-int	cmp_len(char *cleaned_del, char *s)
+int	cmp_len(char *cleaned_file, char *s)
 {
+	int	len;
+
 	len = ft_strlen(s);
 	if (ft_strlen(cleaned_file) > ft_strlen(s))
 		len = ft_strlen(cleaned_file);

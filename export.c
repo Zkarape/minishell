@@ -23,7 +23,7 @@ int	ft_export(t_cmd *cmd, t_args *a)
 	while (cmd->no_cmd[++i])
 	{
 		val = equality_out_of_quotes(cmd->no_cmd[i]);
-		f = is_in_export_or_not(cmd->no_cmd[i], val, a);
+		f = export_update(cmd->no_cmd[i], val, a);
 		if (f == 2)
 			return (1);
 		if (f == 1)
@@ -91,7 +91,7 @@ int	cmp_remove(int k, t_env *cur, t_env_lst *exp_lst, char *arg)
 	return (0);
 }
 
-int	is_in_export_or_not(char *arg, char *arg_val, t_args *a)
+int	export_update(char *arg, char *arg_val, t_args *a)
 {
 	t_env	*cur;
 	int		k;
@@ -100,18 +100,18 @@ int	is_in_export_or_not(char *arg, char *arg_val, t_args *a)
 	cur = a->exp_lst->head->next;
 	while (cur->next)
 	{
-		if (error_checks_for_var(arg, until_equal_sign(arg), 0))
+		if (error_checks_for_var(arg, until_equal_sign(arg), 1))
 			return (2);
 		if (arg_val)
 		{
-			if (!ft_strcmp(before_equal(arg), before_equal(&cur->data[11])))
+			if (!ft_strcmp_with_free(before_equal(arg), before_equal(&cur->data[11])))
 			{
 				remove_from_between(cur, a->exp_lst);
 				return (1);
 			}
 		}
 		else
-			if (ft_strcmp(before_equal(arg), before_equal(&cur->data[11])))
+			if (ft_strcmp_with_free(before_equal(arg), before_equal(&cur->data[11])))
 				k++;
 		cur = cur->next;
 	}
