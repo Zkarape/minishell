@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 23:19:36 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:35:01 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	heredoc(t_cmd *cmd, t_args *a)
 {
 	char	*s;
 	char	*cleaned_file;
-	int		len;
 
 	s = NULL;
 	cleaned_file = filling_with_nulls(a->file);
@@ -60,12 +59,7 @@ int	heredoc(t_cmd *cmd, t_args *a)
 			break ;
 		if (status_check(cleaned_file, s))
 			return (1);
-		if (ft_strlen(cleaned_file) > ft_strlen(s))
-			len = ft_strlen(cleaned_file);
-		else
-			len = ft_strlen(s);
-		if (!(ft_strncmp(cleaned_file, s, len)
-				!= 0 || s[0] == '\0'))
+		if (!(ft_strncmp(cleaned_file, s, cmp_len(cleaned_file, s)) || !s[0]))
 			break ;
 		heredoc_utils(cmd, a, &s);
 		free(s);

@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/23 23:54:23 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:35:38 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,26 +102,23 @@ typedef struct s_env_lst
 typedef struct s_args
 {
 	int				i;
-	int				k;
-	int				k1;
-	int				q;
 	int				ret;
 	int				q_idx;
 	int				start;
 	int				end;
 	int				len;
 	int				exp_start;
-	t_env_lst		*env_lst;
-	t_env_lst		*exp_lst;
 	int				hdoc_flg;
 	int				hdoc_size;
 	int				*fd;
-	char			*file;
-	char			**env;
 	int				size;
 	int				cmd_lst_size;
 	int				(*pipefds)[2];
+	char			*file;
+	char			**env;
 	pid_t			*pids;
+	t_env_lst		*env_lst;
+	t_env_lst		*exp_lst;
 	struct termios	term;
 }	t_args;
 
@@ -261,6 +258,9 @@ void		cmd_expanded(t_cmd_lst *cmd_lst, t_args *args);
 void		cmd_quote_clear(t_cmd_lst *cmd_lst);
 
 //builtins.c
+int			cmp_len(char *cleaned_del, char *s);
+char		*before_equal(char *s);
+char		*equal_str(char *s);
 int			cd(char *path, char **env, t_args *a);
 int			ft_exit(t_cmd *cmd_head);
 int			echo(t_cmd *cmd_node);

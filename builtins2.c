@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:05:06 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/24 00:19:36 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:44:51 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	error_checks_for_var(char *s, int until, int flag)
 	int	i;
 
 	i = 0;
-	printf("until == %d, i == %c\n", until, s[until]);
 	if ((!s || s[0] == '_') && flag)
 		return (0);
 	if (!is_alpha(s[0]))

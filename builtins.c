@@ -6,21 +6,11 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 19:06:24 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/24 00:15:33 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:08:00 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	until_equal_sign(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s && s[i] && s[i] != '=')
-		i++;
-	return (i);
-}
 
 int	echo(t_cmd *cmd_node)
 {

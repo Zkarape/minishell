@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:35:56 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/23 21:02:51 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:10:06 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	while (*s1 == *s2 && *s1 != '\0')
-	{
-		s1++;
-		s2++;
-	}	
-	return (*s1 - *s2);
+	int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }
 
 char	*ft_strcpy(char *dest, char *src)
@@ -80,9 +80,6 @@ char	*ft_str_tolower(char **s)
 
 	i = -1;
 	while (s && *s && (*s)[++i])
-	{
-	//	if (!ft_tolower((*s)[i]))
-			ft_tolower((*s)[i]);
-	}
+		ft_tolower((*s)[i]);
 	return (*s);
 }

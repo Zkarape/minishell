@@ -6,7 +6,7 @@
 /*   By: vpetrosy <vpetrosy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:42:59 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 19:50:15 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:13:11 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*removing_fst_lst_dbl_quotes(char *s)
 	int		i;
 	int		j;
 
-	len = strlen(s);
+	len = ft_strlen(s);
 	if (len < 2)
 		return (NULL);
 	dst = malloc(sizeof(char) * (len - 1));
