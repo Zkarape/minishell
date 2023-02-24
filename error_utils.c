@@ -52,5 +52,8 @@ void	ft_print_error_with_arg(char *cmd, char *arg)
 	s1 = ft_strjoin_m(cmd, ": ");
 	s2 = ft_strjoin_m(arg, ": ");
 	msg = ft_strjoin3(s1, s2, "No such file or directory\n");
+	free(s1);
+	free(s2);
 	ft_putstr(msg);
+	free(msg);
 }

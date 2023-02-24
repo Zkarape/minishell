@@ -159,6 +159,7 @@ int			ft_strcmp(char *s1, char *s2);
 
 //ft_split
 char		*ft_strdup(char *s1);
+//	*s = NULL;
 void		*ft_memcpy(void *dest, void *src, size_t n);
 int			ft_is_space(char c);
 int			word_cpy(char *s_m, char *s, char quote);

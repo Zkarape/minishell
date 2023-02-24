@@ -53,8 +53,8 @@ char	*find_start_end_for_expand(t_args *a, char *s)
 	else
 		get = get_exp(a->exp_lst, del);
 	str = ft_strjoin2(str, get, ft_strlen(get), 0);
-	if (del)
-		free(del);
+	free(del);
+	free(get);
 	return (str);
 }
 

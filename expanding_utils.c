@@ -50,8 +50,8 @@ char	*get_exp(t_env_lst *exp_lst, char *del)
 	{
 		k = until_equal_sign(&exp_node->data[11]);
 		if (!ft_strncmp(&exp_node->data[11], del, k) && k == ft_strlen(del))
-			return (ft_strdup(removing_fst_lst_dbl_quotes(exp_node->data
-						+ 11 + ft_strlen(del) + 1)));
+			return (removing_fst_lst_dbl_quotes(exp_node->data
+						+ 11 + ft_strlen(del) + 1));
 		exp_node = exp_node->next;
 	}
 	return (NULL);
