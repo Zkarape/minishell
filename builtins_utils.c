@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:08:23 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/24 19:35:13 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:46:12 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*after_equal_str(char *s)
 	return (&s[i]);
 }
 
-char	*before_equal(char *s)
+char	*before(char *s)
 {
 	return (ft_substr_m(s, 0, until_equal_sign(s)));
 }

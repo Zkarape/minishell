@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/24 19:35:38 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:57:33 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void		process(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a);
 int			pipex_main(t_cmd_lst *cmd_lst, t_args *a);
 int			pipe_error(int pip);
 //utils
-int		ft_strcmp_with_free(char *s1, char *s2);
+int			cmpfree(char *s1, char *s2);
 int			hdoc_pipe_check(int fd[2], t_cmd *cmd);
 int			ft_tolower(int c);
 char		*get_environment(char *name, char **env);
@@ -261,7 +261,7 @@ void		cmd_quote_clear(t_cmd_lst *cmd_lst);
 
 //builtins.c
 int			cmp_len(char *cleaned_del, char *s);
-char		*before_equal(char *s);
+char		*before(char *s);
 char		*equal_str(char *s);
 int			cd(char *path, char **env, t_args *a);
 int			ft_exit(t_cmd *cmd_head);
@@ -299,7 +299,7 @@ int			is_in_export_or_not(char *arg, char *val, t_args *a);
 void		error_dup(int du);
 
 //builtin_main.c
-int			build(t_cmd *cmd, t_args *a);
+int			build(t_cmd *cmd, t_args *a, int d);
 //signal_handling.c
 void		sig_handler_child(int sig);
 void		ft_putendl_fd(char *s, int fd);

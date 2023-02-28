@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:29:04 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 23:38:52 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:25:21 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	process(int pipefd_in, int pipefd_out, t_cmd *cmd, t_args *a)
 	close_in_out(cmd->hdoc_fd);
 	if (!cmd->no_cmd[0])
 		exit(1);
-	b = build(cmd, a);
+	b = build(cmd, a, 0);
 	if (!b)
 		execute(cmd, a->env);
 	else

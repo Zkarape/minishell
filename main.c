@@ -6,20 +6,11 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/24 15:02:33 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:54:55 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	update_free(t_cmd_lst **cmd_lst, t_list **lst, char *s, t_args *a)
-{
-	update_status(a);
-	free_a(a);
-	free(s);
-	lst_destruct(lst);
-	cmd_lst_destruct(cmd_lst, NULL);
-}
 
 int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 {
@@ -41,25 +32,22 @@ int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 	cmd_quote_clear(*cmd_lst);
 	a->env = from_lst_to_dbl(a->env_lst);
 	if ((*cmd_lst)->size == 1 && (*cmd_lst)->head->no_cmd
-		&& (*cmd_lst)->head->no_cmd[0] && build((*cmd_lst)->head, a))
-	{
-		dup2((*cmd_lst)->head->fd_in, STDIN_FILENO);
-		dup2((*cmd_lst)->head->fd_out, STDOUT_FILENO);
-//		close((*cmd_lst)->head->fd_out);
-//		close((*cmd_lst)->head->fd_in);
-		printf("out == %d\n", (*cmd_lst)->head->fd_out);
-	//	dup_in_or_not_ttq((*cmd_lst)->head, (*cmd_lst)->head->fd_in);
-	//	dup_out_or_not_ttq((*cmd_lst)->head, (*cmd_lst)->head->fd_out);
-		return (2);
-	}
+		&& (*cmd_lst)->head->no_cmd[0] && build((*cmd_lst)->head, a, 1))
+		return (1);
 	return (0);
+}
+
+void	ctrl_d_check(char *s)
+{
+	if (!s)
+	{
+		write(1, "exit\n", 5);
+		exit(g_status);
+	}
 }
 
 void	exec_d_parsed(t_args *args)
 {
-	int		ret;
-	int		in = STDIN_FILENO;
-	int		out = STDOUT_FILENO;
 	char		*s;
 	t_list		*lst;
 	t_cmd_lst	*cmd_lst;
@@ -72,25 +60,12 @@ void	exec_d_parsed(t_args *args)
 		sig_control(1);
 		update_free(&cmd_lst, &lst, s, args);
 		s = readline("minishell$ ");
-		if (!s)
-		{
-			write(1, "exit\n", 5);
-			exit(g_status);
-		}
+		ctrl_d_check(s);
 		if (*s)
 			add_history(s);
-		ret = parsing_part(s, args, &cmd_lst, &lst);
-		if (ret == 1)
+		if (parsing_part(s, args, &cmd_lst, &lst))
 		{
 			args->ret = 1;
-			continue ;
-		}
-		if (ret == 2)
-		{
-			args->ret = 1;
-			dup2(in, cmd_lst->head->fd_in);
-			dup2(out, cmd_lst->head->fd_out);
-			printf("out2 == %d\n", cmd_lst->head->fd_out);
 			continue ;
 		}
 		args->ret = pipex_main(cmd_lst, args);

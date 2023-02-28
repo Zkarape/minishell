@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:17:00 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/22 21:48:35 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:52:25 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ int	func_for_reds(t_cmd *cmd_node, t_red *red_node)
 		cmd_node->fd_in = open(red_node->file, O_RDONLY);
 	}
 	else if (red_node->type == HEREDOC && cmd_node->yep)
-	{
 		close_in_out(cmd_node->fd_in);
-	}
 	else if (red_node->type == APPEND_REDIRECTION)
 	{
 		close_in_out(cmd_node->fd_out);

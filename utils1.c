@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:35:56 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/24 19:10:06 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:49:24 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,6 @@ int	ft_strcmp(char *s1, char *s2)
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
 	return (s1[i] - s2[i]);
-}
-
-int	ft_strcmp_with_free(char *s1, char *s2)
-{
-	int	i;
-	int	res;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	res = s1[i] - s2[i];
-	free(s1);
-	free(s2);
-	return (res);
 }
 
 char	*ft_strcpy(char *dest, char *src)

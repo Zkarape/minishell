@@ -6,17 +6,44 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:56:46 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/24 19:12:48 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:57:28 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	build(t_cmd *cmd, t_args *a)
+void	closes_one_builtin(t_cmd *cmd, int d, int *in_, int *out_)
+{
+	if (d)
+	{
+		dup2(*in_, STDIN_FILENO);
+		dup2(*out_, STDOUT_FILENO);
+		close(*in_);
+		close(*out_);
+		close_in_out(cmd->fd_in);
+		close_in_out(cmd->fd_out);
+	}
+}
+
+void	dup_for_one_builtin(t_cmd *cmd, int d, int *in_, int *out_)
+{
+	if (d)
+	{
+		*in_ = dup(STDIN_FILENO);
+		*out_ = dup(STDOUT_FILENO);
+		dup2(cmd->fd_in, 0);
+		dup2(cmd->fd_out, STDOUT_FILENO);
+	}
+}
+
+int	build(t_cmd *cmd, t_args *a, int d)
 {
 	int	i;
+	int	in_;
+	int	out_;
 
 	i = 1;
+	dup_for_one_builtin(cmd, d, &in_, &out_);
 	if (!ft_strncmp(cmd->no_cmd[0], "exit", 5))
 		g_status = ft_exit(cmd);
 	else if (!ft_strncmp(ft_str_tolower(&cmd->no_cmd[0]), "env", 4))
@@ -33,5 +60,6 @@ int	build(t_cmd *cmd, t_args *a)
 		g_status = ft_export(cmd, a);
 	else
 		i = 0;
+	closes_one_builtin(cmd, d, &in_, &out_);
 	return (i);
 }

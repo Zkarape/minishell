@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 21:39:09 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/24 19:07:36 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:49:38 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,18 @@ t_env_lst	*exp_cpy_env(t_args *a)
 	return (a->exp_lst);
 }
 
-int	cmp_remove(int k, t_env *cur, t_env_lst *exp_lst, char *arg)
+int	cmpfree(char *s1, char *s2)
 {
-	if (!ft_strncmp(&cur->data[11], arg, k))
-	{
-		remove_from_between(cur, exp_lst);
-		return (1);
-	}
-	return (0);
+	int	i;
+	int	res;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	res = s1[i] - s2[i];
+	free(s1);
+	free(s2);
+	return (res);
 }
 
 int	export_update(char *arg, char *arg_val, t_args *a)
@@ -104,14 +108,14 @@ int	export_update(char *arg, char *arg_val, t_args *a)
 			return (2);
 		if (arg_val)
 		{
-			if (!ft_strcmp_with_free(before_equal(arg), before_equal(&cur->data[11])))
+			if (!cmpfree(before(arg), before(&cur->data[11])))
 			{
 				remove_from_between(cur, a->exp_lst);
 				return (1);
 			}
 		}
 		else
-			if (ft_strcmp_with_free(before_equal(arg), before_equal(&cur->data[11])))
+			if (cmpfree(before(arg), before(&cur->data[11])))
 				k++;
 		cur = cur->next;
 	}
