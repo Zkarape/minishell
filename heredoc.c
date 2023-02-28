@@ -29,6 +29,7 @@ void	heredoc_utils(t_cmd *cmd, t_args *a, char **s)
 		cmd->hdoc_fd = a->fd[0];
 	}
 	free(tmp);
+        *s = NULL;
 }
 
 int	status_check(char *cleaned_file, char *s)

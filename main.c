@@ -45,15 +45,21 @@ int	parsing_part(char *s, t_args *a, t_cmd_lst **cmd_lst, t_list **lst)
 	{
 		dup2((*cmd_lst)->head->fd_in, STDIN_FILENO);
 		dup2((*cmd_lst)->head->fd_out, STDOUT_FILENO);
-	//	dup_in_or_not_ttq((*cmd_lst)->head, 0);
-	//	dup_out_or_not_ttq((*cmd_lst)->head, 1);
-		return (1);
+//		close((*cmd_lst)->head->fd_out);
+//		close((*cmd_lst)->head->fd_in);
+		printf("out == %d\n", (*cmd_lst)->head->fd_out);
+	//	dup_in_or_not_ttq((*cmd_lst)->head, (*cmd_lst)->head->fd_in);
+	//	dup_out_or_not_ttq((*cmd_lst)->head, (*cmd_lst)->head->fd_out);
+		return (2);
 	}
 	return (0);
 }
 
 void	exec_d_parsed(t_args *args)
 {
+	int		ret;
+	int		in = STDIN_FILENO;
+	int		out = STDOUT_FILENO;
 	char		*s;
 	t_list		*lst;
 	t_cmd_lst	*cmd_lst;
@@ -73,11 +79,18 @@ void	exec_d_parsed(t_args *args)
 		}
 		if (*s)
 			add_history(s);
-		if (parsing_part(s, args, &cmd_lst, &lst))
+		ret = parsing_part(s, args, &cmd_lst, &lst);
+		if (ret == 1)
 		{
 			args->ret = 1;
-			dup2(cmd_lst->head->fd_in, STDIN_FILENO);
-			dup2(cmd_lst->head->fd_out, STDOUT_FILENO);
+			continue ;
+		}
+		if (ret == 2)
+		{
+			args->ret = 1;
+			dup2(in, cmd_lst->head->fd_in);
+			dup2(out, cmd_lst->head->fd_out);
+			printf("out2 == %d\n", cmd_lst->head->fd_out);
 			continue ;
 		}
 		args->ret = pipex_main(cmd_lst, args);

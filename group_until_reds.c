@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ankap_checks(int *i, char *s, int type, int *start)
+int	check_and_move(int *i, char *s, int type, int *start)
 {
 	if (type == 2 || type == 3)
 		(*i)++;
@@ -52,7 +52,7 @@ int	find_start_end(char *s, t_cmd *cmd_node, t_red_lst *red_lst)
 		{
 			str = ft_strjoin2(str, s, i, end + 1);
 			type = return_type(s[i], s[i + 1]);
-			if (ankap_checks(&i, s, type, &start))
+			if (check_and_move(&i, s, type, &start))
 				return (1);
 			end = i;
 			red_add(red_lst, file_trim(&s[start + 1], end - start, type), type);
@@ -88,11 +88,9 @@ int	one_cmd_init(t_node *node, t_cmd_lst *cmd_lst, t_args *a)
 
 t_cmd_lst	*grouping_with_red(t_list *pipe_group, t_args *a)
 {
-	int			i;
 	t_node		*cur;
 	t_cmd_lst	*cmd_lst;
 
-	i = -1;
 	cmd_lst = cmd_lst_construct();
 	cur = pipe_group->head;
 	while (cur)

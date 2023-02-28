@@ -89,8 +89,8 @@ void	process(int pipefd_in, int pipefd_out, t_cmd *cmd, t_args *a)
 
 	i = -1;
 	b = 0;
-	if (red_big_loop(cmd))
-		ft_print_error_and_exit("file not found\n", 127);
+//	if (red_big_loop(cmd))
+//		ft_print_error_and_exit("file not found\n", 127);
 	dup_in_or_not_ttq(cmd, pipefd_in);
 	dup_out_or_not_ttq(cmd, pipefd_out);
 	while (a->pipefds && ++i < a->size)
