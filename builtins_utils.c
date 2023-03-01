@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:08:23 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/28 19:46:12 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:56:36 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,17 @@ int	cmp_len(char *cleaned_file, char *s)
 		len = ft_strlen(cleaned_file);
 	return (len);
 }
+
+t_env_lst	*exp_cpy_env(t_args *a)
+{
+	t_env		*cur;
+
+	cur = a->env_lst->head->next;
+	while (cur->next)
+	{
+		export_pars(cur->data, a);
+		cur = cur->next;
+	}
+	return (a->exp_lst);
+}
+

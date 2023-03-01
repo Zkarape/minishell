@@ -6,39 +6,54 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 21:39:09 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/28 19:49:38 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:35:49 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	doer(t_env *env_cur, t_args *a, int i, t_cmd *cmd)
+{
+	env_cur = is_in_env_or_not(a->env_lst, cmd->no_cmd[i]);
+	remove_from_between(env_cur, a->env_lst);
+	env_lst_add_last(a->env_lst, cmd->no_cmd[i]);
+}
+
+int	update_return(int f, t_args *a, t_cmd *cmd, int i)
+{
+	if (f == 2)
+		return (2);
+	if (f == 1 || f == 0)
+		export_pars(cmd->no_cmd[i], a);
+	return (0);
+}
+
 int	ft_export(t_cmd *cmd, t_args *a)
 {
 	int		i;
 	int		f;
+	int		q;
 	char	*val;
-	t_env	*env_cur;
+	t_env	*env_cur = NULL;
 
 	i = 0;
+	q = 0;
 	while (cmd->no_cmd[++i])
 	{
 		val = equality_out_of_quotes(cmd->no_cmd[i]);
 		f = export_update(cmd->no_cmd[i], val, a);
-		if (f == 2)
-			return (1);
-		if (f == 1)
-			export_pars(cmd->no_cmd[i], a);
-		if (val)
+		if (update_return(f, a, cmd, i) == 2)
 		{
-			env_cur = is_in_env_or_not(a->env_lst, cmd->no_cmd[i]);
-			remove_from_between(env_cur, a->env_lst);
-			env_lst_add_last(a->env_lst, cmd->no_cmd[i]);
+			q = 1;
+			continue ;
 		}
+		if (val)
+			doer(env_cur, a, i, cmd);
 	}
 	sort(a->exp_lst);
 	if (!cmd->no_cmd[1])
 		exp_lst_print(a->exp_lst);
-	return (0);
+	return (q);
 }
 
 void	export_pars(char *s, t_args *a)
@@ -68,20 +83,7 @@ void	export_pars(char *s, t_args *a)
 	free(duped);
 }
 
-t_env_lst	*exp_cpy_env(t_args *a)
-{
-	t_env		*cur;
-
-	cur = a->env_lst->head->next;
-	while (cur->next)
-	{
-		export_pars(cur->data, a);
-		cur = cur->next;
-	}
-	return (a->exp_lst);
-}
-
-int	cmpfree(char *s1, char *s2)
+int	cmpfree(char *s1, char *s2, int f)
 {
 	int	i;
 	int	res;
@@ -91,7 +93,8 @@ int	cmpfree(char *s1, char *s2)
 		i++;
 	res = s1[i] - s2[i];
 	free(s1);
-	free(s2);
+	if (f)
+		free(s2);
 	return (res);
 }
 
@@ -108,14 +111,14 @@ int	export_update(char *arg, char *arg_val, t_args *a)
 			return (2);
 		if (arg_val)
 		{
-			if (!cmpfree(before(arg), before(&cur->data[11])))
+			if (!cmpfree(before(arg), before(&cur->data[11]), 1))
 			{
 				remove_from_between(cur, a->exp_lst);
 				return (1);
 			}
 		}
 		else
-			if (cmpfree(before(arg), before(&cur->data[11])))
+			if (cmpfree(before(arg), before(&cur->data[11]), 1))
 				k++;
 		cur = cur->next;
 	}

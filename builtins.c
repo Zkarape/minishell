@@ -6,11 +6,16 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 19:06:24 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/24 19:08:00 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:39:04 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	echo_checks(char *s)
+{
+
+}
 
 int	echo(t_cmd *cmd_node)
 {
@@ -54,31 +59,31 @@ void	remove_cur_env_node(t_env_lst *env_lst, char *s)
 	}
 }
 
-int	unset(t_env_lst *env_lst, t_env_lst *exp_lst, t_cmd *cmd_node)
+int	unset(t_env_lst *env_lst, t_env_lst *exp_lst, t_cmd *cmd)
 {
 	int		i;
-	int		k;
-	t_env	*exp_node;
+	int		q;
+	t_env	*cur;
 
 	i = 0;
-	exp_node = exp_lst->head->next;
-	while (cmd_node->no_cmd[++i])
+	q = 0;
+	while (cmd->no_cmd[++i])
 	{
-		if (error_checks_for_var(cmd_node->no_cmd[i],
-				ft_strlen(cmd_node->no_cmd[i]), 1))
-			return (1);
-		while (exp_node->next)
+		cur = exp_lst->head->next;
+		if (error_checks_for_var(cmd->no_cmd[i], ft_strlen(cmd->no_cmd[i]), 1))
+			q++;
+		while (cur->next)
 		{
-			k = until_equal_sign(&exp_node->data[11]);
-			if (!ft_strncmp(&exp_node->data[11], cmd_node->no_cmd[i], k)
-				&& k == ft_strlen(cmd_node->no_cmd[i]))
+			if (!cmpfree(before(&cur->data[11]), cmd->no_cmd[i], 0))
 			{
-				remove_cur_env_node(env_lst, &exp_node->data[11]);
-				remove_from_between(exp_node, exp_lst);
+				remove_cur_env_node(env_lst, &cur->data[11]);
+				remove_from_between(cur, exp_lst);
 				break ;
 			}
-			exp_node = exp_node->next;
+			cur = cur->next;
 		}
 	}
+	if (q == i - 1)
+		return (1);
 	return (0);
 }

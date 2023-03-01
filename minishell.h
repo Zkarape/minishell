@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/28 19:57:33 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:22:23 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ void		process(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a);
 int			pipex_main(t_cmd_lst *cmd_lst, t_args *a);
 int			pipe_error(int pip);
 //utils
-int			cmpfree(char *s1, char *s2);
 int			hdoc_pipe_check(int fd[2], t_cmd *cmd);
 int			ft_tolower(int c);
 char		*get_environment(char *name, char **env);
@@ -282,7 +281,8 @@ void		dup_out_or_not_ttq(t_cmd *cmd, int pipefd);
 int			last_input_work(t_red_lst *red_lst);
 
 //export.c
-int		export_update(char *arg, char *arg_val, t_args *a);
+int			cmpfree(char *s1, char *s2, int f);
+int			export_update(char *arg, char *arg_val, t_args *a);
 t_env_lst	*exp_cpy_env(t_args *a);
 int			ft_export(t_cmd *cmd, t_args *a);
 void		export_pars(char *s, t_args *a);
