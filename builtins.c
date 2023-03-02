@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 19:06:24 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/02 17:14:34 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:07:18 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	echo(t_cmd *cmd_node)
 		ft_putstr_fd("\n", 1, 0);
 		return (0);
 	}
-	if (echo_checks(cmd_node->no_cmd[1]))
+	while (cmd_node->no_cmd[i] && echo_checks(cmd_node->no_cmd[i]))
 	{
 		i++;
 		k = 0;

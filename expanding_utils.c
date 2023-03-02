@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:53:08 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/28 19:48:35 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/02 21:23:45 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	find_d_quotes(char *s, int i)
 		{
 			if (s[i] == '$')
 				return (i + 1);
-			return (i + 1);
+			return (i);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:36:24 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/22 21:45:46 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:20:12 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	*ft_strjoin2(char *s1, char *s2, int start, int end)
 	int		len;
 
 	i = 0;
+//	printf("join str == %s\n", s1);
+//	printf("start == %d, end == %d\n", start, end);
 	len = ft_strlen(s1);
 	dst = (char *)malloc((len + start - end + 1) * sizeof(char));
 	if (!dst)
@@ -95,6 +97,7 @@ char	*ft_strjoin2(char *s1, char *s2, int start, int end)
 		end++;
 	}
 	dst[i] = '\0';
+//	printf("dst == %s\n", dst);
 	if (s1)
 		free(s1);
 	return (dst);

@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:24:09 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/02 17:20:56 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:27:00 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*find_del(char *s, t_args *a)
 	k = 0;
 	del = NULL;
 	while (!ft_is_space(s[a->i]) && !is_quote(s[a->i]) && s[a->i] != '/'
-		&& s[a->i] && s[a->i++] != '$')
+		&&  s[a->i] != '=' && s[a->i] && s[a->i++] != '$')
 		k++;
 	if (s[a->i - 1] == '$' && is_quote(s[a->i]))
 		return (del);
@@ -58,23 +58,38 @@ char	*find_start_end_for_expand(t_args *a, char *s)
 }
 
 //end is always on '$', start is 0, then it becomes the next of del
-char	*find_dollar_del(char *s, t_args *a)
+char	*find_dollar_del(char *s, t_args *a, char *str)
 {
-	char	*str;
+	int		k;
 
-	str = NULL;
+	k = 0;
 	while (s[a->i] && a->i < a->q_idx)
 	{
 		if ((s[a->i] == '$' && s[a->i + 1] && a->i + 1 < a->q_idx)
 			|| (s[a->i] == '$' && a->i + 1 == a->q_idx && !a->hdoc_flg))
 		{
-			str = find_start_end_for_expand(a, s);
+			k = 1;
+			str = ft_strjoin_m(str, find_start_end_for_expand(a, s));
+		//	TODO:free
 		}
 		else
 			a->i++;
 	}
 	if (s[a->i] == '\'' && !a->hdoc_flg) // for $'$HOME'
 		a->i--;
+	return (str);
+}
+
+char	*dbl_quote_part(t_args *args, char *s, char *str)
+{
+
+	if (s[args->i + 1] == '$' && s[args->i + 2] == '"')
+		args->i += 2;
+	else
+	{
+		args->q_idx = find_d_quote2(s, s[args->i], args->i);
+		str = find_dollar_del(s, args, str);
+	}
 	return (str);
 }
 
@@ -89,36 +104,14 @@ char	*expand(char *s, t_args *args)
 	while (s && s[args->i])
 	{
 		if (s[args->i] == '"')
-		{
-			args->q_idx = find_d_quote2(s, s[args->i], args->i);
-			str = find_dollar_del(s, args);
-		}
+			str = dbl_quote_part(args, s, str);
 		else if (s[args->i] == '\'')
 			args->i = find_d_quote2(s, s[args->i], args->i);
 		else
 		{
 			args->q_idx = find_d_quotes(s, args->i);
-			str = find_dollar_del(s, args);
+			str = find_dollar_del(s, args, str);
 		}
-		if (s[args->i])
-			args->i++;
-	}
-	str = ft_strjoin2(str, s, args->i, args->start);
-	return (str);
-}
-
-char	*hdoc_expand(char *s, t_args *args)
-{
-	char	*str;
-
-	str = NULL;
-	args->i = 0;
-	args->start = 0;
-	args->hdoc_flg = 1;
-	while (s && s[args->i])
-	{
-		args->q_idx = find_d_quotes(s, args->i);
-		str = find_dollar_del(s, args);	
 		if (s[args->i])
 			args->i++;
 	}

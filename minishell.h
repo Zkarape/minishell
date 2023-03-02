@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/02 16:19:09 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:45:42 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ int			find_d_quotes(char *s, int i);
 char		*find_start_end_for_expand(t_args *a, char *s);
 char		*expand(char *s, t_args *args);
 char		*hdoc_expand(char *s, t_args *args);
-char		*find_dollar_del(char *s, t_args *a);
+char		*find_dollar_del(char *s, t_args *a, char *str);
 //expanding_utils.c
 int			find_d_quote2(char *s, char quote, int i);
 char		*get_exp(t_env_lst *exp_lst, char *del);
