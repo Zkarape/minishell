@@ -6,7 +6,7 @@
 /*   By: aivanyan <aivanyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:32:53 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/28 19:49:05 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:42:24 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	heredoc_utils(t_cmd *cmd, t_args *a, char **s)
 	char	*tmp;
 
 	tmp = NULL;
-	if (find_d_quotes(a->file, 0) == ft_strlen(a->file))
+	if (find_d_quotes(a->file, 0) == ft_strlen(a->file) - 1)
 	{
 		tmp = hdoc_expand(*s, a);
 		free(*s);
