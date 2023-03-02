@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/01 20:22:23 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:19:09 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_env_lst
 typedef struct s_args
 {
 	int				i;
+	int				k;
 	int				ret;
 	int				q_idx;
 	int				start;

@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:05:06 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/01 19:55:06 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:22:32 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,19 @@ int	pwd(void)
 		return (1);
 	}
 	return (0);
+}
+
+int	cmpfree(char *s1, char *s2, int f)
+{
+	int	i;
+	int	res;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	res = s1[i] - s2[i];
+	free(s1);
+	if (f)
+		free(s2);
+	return (res);
 }

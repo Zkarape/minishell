@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 21:39:09 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/01 22:35:49 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:20:45 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	update_return(int f, t_args *a, t_cmd *cmd, int i)
 {
 	if (f == 2)
 		return (2);
-	if (f == 1 || f == 0)
+	if (f == 1)
 		export_pars(cmd->no_cmd[i], a);
 	return (0);
 }
@@ -34,7 +34,7 @@ int	ft_export(t_cmd *cmd, t_args *a)
 	int		f;
 	int		q;
 	char	*val;
-	t_env	*env_cur = NULL;
+	t_env	*env_cur;
 
 	i = 0;
 	q = 0;
@@ -83,27 +83,11 @@ void	export_pars(char *s, t_args *a)
 	free(duped);
 }
 
-int	cmpfree(char *s1, char *s2, int f)
-{
-	int	i;
-	int	res;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	res = s1[i] - s2[i];
-	free(s1);
-	if (f)
-		free(s2);
-	return (res);
-}
-
 int	export_update(char *arg, char *arg_val, t_args *a)
 {
 	t_env	*cur;
-	int		k;
 
-	k = 0;
+	a->k = 0;
 	cur = a->exp_lst->head->next;
 	while (cur->next)
 	{
@@ -116,13 +100,14 @@ int	export_update(char *arg, char *arg_val, t_args *a)
 				remove_from_between(cur, a->exp_lst);
 				return (1);
 			}
+			a->k++;
 		}
 		else
 			if (cmpfree(before(arg), before(&cur->data[11]), 1))
-				k++;
+				a->k++;
 		cur = cur->next;
 	}
-	if (k == a->exp_lst->size)
+	if (a->k == a->exp_lst->size)
 		return (1);
 	return (0);
 }
