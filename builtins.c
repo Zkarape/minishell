@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 19:06:24 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/02 16:36:25 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/02 17:14:34 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int	echo_checks(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] && s[0] == '-')
+	if (s[i] != '-')
+		return (0);
+	while (s[++i])
 	{
-		i++;
-		if (s[i] && s[i] != 'n')
+		if (s[i] != 'n')
 			return (0);
 	}
 	return (1);
@@ -34,7 +35,10 @@ int	echo(t_cmd *cmd_node)
 	i = 1;
 	k = 1;
 	if (!cmd_node->no_cmd[1])
+	{
+		ft_putstr_fd("\n", 1, 0);
 		return (0);
+	}
 	if (echo_checks(cmd_node->no_cmd[1]))
 	{
 		i++;
