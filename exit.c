@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:51:16 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/21 21:56:21 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:53:45 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	check_long_long(char *s)
 void	put_status_and_exit(int status)
 {
 	g_status = status;
+	ft_putstr_fd("exit\n", 1, 0);
 	exit(status);
 }
 
@@ -83,7 +84,7 @@ int	ft_exit(t_cmd *cmd_head)
 	if (!nothing_but_int(cmd_head->no_cmd[1])
 		|| check_long_long(cmd_head->no_cmd[1]))
 	{
-		ft_putstr("exit\nexit: numeric argument required\n");
+		ft_putstr("exit: numeric argument required\n");
 		put_status_and_exit(255);
 	}
 	while (cmd_head->no_cmd[++i])
