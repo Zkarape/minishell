@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:05:06 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/02 16:22:32 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:30:56 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	env(t_env_lst *env_lst, char *arg, char **envv)
 {
 	if (!get_environment("PATH=", envv))
 	{
-		ft_putstr("env: No such file or directory\n");
+		ft_putstr_fd("env: No such file or directory\n", 2, 0);
 		return (1);
 	}
 	if (arg)

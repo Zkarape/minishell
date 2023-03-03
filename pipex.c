@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:29:04 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/02/28 18:25:21 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:27:12 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void	process(int pipefd_in, int pipefd_out, t_cmd *cmd, t_args *a)
 
 	i = -1;
 	b = 0;
-//	if (red_big_loop(cmd))
-//		ft_print_error_and_exit("file not found\n", 127);
 	dup_in_or_not_ttq(cmd, pipefd_in);
 	dup_out_or_not_ttq(cmd, pipefd_out);
 	while (a->pipefds && ++i < a->size)
@@ -131,5 +129,5 @@ void	execute(t_cmd *cmd, char **env)
 			free(absolue_path);
 		}
 	}
-	ft_print_error_and_exit("cmd not found\n", 127);
+	ft_perror_and_exit(cmd->no_cmd[0], 127);
 }
