@@ -6,11 +6,30 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:56:46 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/02/28 21:33:51 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:22:24 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_builtin(t_cmd *cmd)
+{
+	if (!ft_strncmp(cmd->no_cmd[0], "exit", 5))
+		return (1);
+	else if (!ft_strncmp(ft_str_tolower(&cmd->no_cmd[0]), "env", 4))
+		return (1);
+	else if (!ft_strncmp(ft_str_tolower(&cmd->no_cmd[0]), "pwd", 4))
+		return (1);
+	else if (!ft_strncmp(cmd->no_cmd[0], "cd", 3))
+		return (1);
+	else if (!ft_strncmp(ft_str_tolower(&cmd->no_cmd[0]), "echo", 5))
+		return (1);
+	else if (!ft_strncmp(cmd->no_cmd[0], "unset", 6))
+		return (1);
+	else if (!ft_strncmp(cmd->no_cmd[0], "export", 7))
+		return (1);
+	return (0);
+}
 
 void	closes_one_builtin(t_cmd *cmd, int d, int *in_, int *out_)
 {
@@ -36,14 +55,14 @@ void	dup_for_one_builtin(t_cmd *cmd, int d, int *in_, int *out_)
 	}
 }
 
-int	build(t_cmd *cmd, t_args *a, int d)
+int	build(t_cmd *cmd, t_args *a)
 {
 	int	i;
 	int	in_;
 	int	out_;
 
 	i = 1;
-	dup_for_one_builtin(cmd, d, &in_, &out_);
+	dup_for_one_builtin(cmd, is_builtin(cmd), &in_, &out_);
 	if (!ft_strncmp(cmd->no_cmd[0], "exit", 5))
 		g_status = ft_exit(cmd);
 	else if (!ft_strncmp(ft_str_tolower(&cmd->no_cmd[0]), "env", 4))
@@ -60,6 +79,6 @@ int	build(t_cmd *cmd, t_args *a, int d)
 		g_status = ft_export(cmd, a);
 	else
 		i = 0;
-	closes_one_builtin(cmd, d, &in_, &out_);
+	closes_one_builtin(cmd, is_builtin(cmd), &in_, &out_);
 	return (i);
 }

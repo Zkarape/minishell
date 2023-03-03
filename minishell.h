@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/03 14:26:58 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:16:13 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,7 +300,7 @@ int			is_in_export_or_not(char *arg, char *val, t_args *a);
 void		error_dup(int du);
 
 //builtin_main.c
-int			build(t_cmd *cmd, t_args *a, int d);
+int			build(t_cmd *cmd, t_args *a);
 //signal_handling.c
 void		sig_handler_child(int sig);
 void		ft_putendl_fd(char *s, int fd);
