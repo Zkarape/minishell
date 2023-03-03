@@ -6,14 +6,16 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:56:46 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/03 15:22:24 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:13:05 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_builtin(t_cmd *cmd)
+int	is_builtin(t_cmd *cmd, t_args *a)
 {
+	if (a->size + 1 != 1)
+		return (0);
 	if (!ft_strncmp(cmd->no_cmd[0], "exit", 5))
 		return (1);
 	else if (!ft_strncmp(ft_str_tolower(&cmd->no_cmd[0]), "env", 4))
@@ -62,7 +64,7 @@ int	build(t_cmd *cmd, t_args *a)
 	int	out_;
 
 	i = 1;
-	dup_for_one_builtin(cmd, is_builtin(cmd), &in_, &out_);
+	dup_for_one_builtin(cmd, is_builtin(cmd, a), &in_, &out_);
 	if (!ft_strncmp(cmd->no_cmd[0], "exit", 5))
 		g_status = ft_exit(cmd);
 	else if (!ft_strncmp(ft_str_tolower(&cmd->no_cmd[0]), "env", 4))
@@ -79,6 +81,6 @@ int	build(t_cmd *cmd, t_args *a)
 		g_status = ft_export(cmd, a);
 	else
 		i = 0;
-	closes_one_builtin(cmd, is_builtin(cmd), &in_, &out_);
+	closes_one_builtin(cmd, is_builtin(cmd, a), &in_, &out_);
 	return (i);
 }
