@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:56:46 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/03 22:13:05 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/04 13:25:18 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	is_builtin(t_cmd *cmd, t_args *a)
 {
+	printf("size == %d\n", a->size);
 	if (a->size + 1 != 1)
 		return (0);
 	if (!ft_strncmp(cmd->no_cmd[0], "exit", 5))

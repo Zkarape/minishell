@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/03 15:16:13 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/04 13:48:23 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,4 +326,6 @@ void		cmd_lst_destruct(t_cmd_lst **list, t_cmd *until);
 void		printer(char **s);
 void		update_free(t_cmd_lst **cmd_lst, t_list **lst, char *s, t_args *a);
 void		ft_perror_and_exit(char *cmd, int code);
+
+char	*ft_strjoin_m1(char *s1, char *s2);
 #endif

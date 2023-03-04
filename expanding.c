@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:24:09 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/04 01:38:13 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/04 13:48:49 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ char	*find_start_end_for_expand(t_args *a, char *s)
 //end is always on '$', start is 0, then it becomes the next of del
 char	*find_dollar_del(char *s, t_args *a, char *str)
 {
-	int		k;
+//	int		k;
 	char	*tmp;
 
-	k = 0;
+//	k = 0;
 	tmp = NULL;
 	while (s[a->i] && a->i < a->q_idx)
 	{
 		if ((s[a->i] == '$' && s[a->i + 1] && a->i + 1 < a->q_idx)
 			|| (s[a->i] == '$' && a->i + 1 == a->q_idx && !a->hdoc_flg))
 		{
-			k = 1;
+		//	k = 1;
 			tmp = find_start_end_for_expand(a, s);
-			str = ft_strjoin_m(str, tmp);
+			str = ft_strjoin_m1(str, tmp);
 			free(tmp);
 	//		str = ft_strjoin_m(str, find_start_end_for_expand(a, s));
 		//	TODO:free
@@ -103,7 +103,7 @@ char	*dbl_quote_part(t_args *args, char *s, char *str)
 char	*expand(char *s, t_args *args)
 {
 	char	*str;
-	char	*tmp;
+	//char	*tmp;
 
 	args->i = 0;
 	str = NULL;
@@ -118,9 +118,9 @@ char	*expand(char *s, t_args *args)
 		else
 		{
 			args->q_idx = find_d_quotes(s, args->i);
-			tmp = find_dollar_del(s, args, str);
-			free(str);
-			str = tmp;
+			str = find_dollar_del(s, args, str);
+			//free(str);
+			//str = tmp;
 			//str = find_dollar_del(s, args, str);
 		}
 		if (s[args->i])

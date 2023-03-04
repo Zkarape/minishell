@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:36:24 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/03/03 00:20:12 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/04 13:48:01 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,33 @@ char	*ft_strjoin_m(char *s1, char *s2)
 		i++;
 	}
 	join[i] = '\0';
+	return (join);
+}
+
+char	*ft_strjoin_m1(char *s1, char *s2)
+{
+	char	*join;
+	int		i;
+
+	join = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (join == NULL)
+		return (NULL);
+	i = 0;
+	while (s1 && *s1)
+	{
+		join[i] = *s1;
+		s1++;
+		i++;
+	}
+	while (s2 && *s2)
+	{
+		join[i] = *s2;
+		s2++;
+		i++;
+	}
+	join[i] = '\0';
+	if(s1)
+		free(s1);
 	return (join);
 }
 
