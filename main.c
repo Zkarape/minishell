@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:35:38 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/03/04 13:28:07 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/04 13:34:36 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,5 @@ int	main(int ac, char **av, char **env)
 	args = malloc(sizeof(t_args));
 	a_init(args, env);
 	exec_d_parsed(args);
-//	free(args);
 	return (0);
 }

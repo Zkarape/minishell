@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:03:48 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/03 15:08:25 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:16:58 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	dup_in_or_not_ttq(t_cmd *cur, int pipe_fd_in)
 }
 
 void	dup_out_or_not_ttq(t_cmd *cur, int pipe_fd_out)
-{
+{	
 	if (cur->fd_out == 1)
 	{
 		if (dup2(pipe_fd_out, STDOUT_FILENO) < 0)

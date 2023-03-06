@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:29:04 by aivanyan          #+#    #+#             */
-/*   Updated: 2023/03/03 15:15:51 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/04 15:45:46 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,5 @@ void	execute(t_cmd *cmd, char **env)
 			free(absolue_path);
 		}
 	}
-	ft_perror_and_exit(cmd->no_cmd[0], 127);
+	ft_print_error_and_exit("command not found\n", 127);
 }

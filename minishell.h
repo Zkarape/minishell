@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:07:49 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/04 13:48:23 by aivanyan         ###   ########.fr       */
+/*   Updated: 2023/03/04 15:42:50 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,45 +124,82 @@ typedef struct s_args
 }	t_args;
 
 //group_until_reds.c
+int			find_start_end(char *s, t_cmd *cmd, t_red_lst *red_lst);
+int			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst, t_args *a);
+t_cmd_lst	*grouping_with_red(t_list *pipe_group, t_args *a);
+//group_until_reds_utils.c
+int			more_reds(char *s, char c);
+int			return_type(char c, char c_next);
 void		redirections(t_cmd_lst *lst);
+//cmd_lst_construct.c
 t_cmd_lst	*cmd_lst_construct(void);
 void		cmd_lst_print(t_cmd_lst *list);
 void		cmd_lst_add_last(t_cmd_lst *list);
-void		closing_hdoc(int fd[2], t_cmd *cmd, int flag);
-int			heredoc_cycle(t_cmd_lst *cmd_lst, t_args *a);
-t_cmd_lst	*grouping_with_red(t_list *pipe_group, t_args *a);
-int			one_cmd_init(t_node *node, t_cmd_lst *cmd_lst, t_args *a);
-int			find_start_end(char *s, t_cmd *cmd, t_red_lst *red_lst);
 t_cmd		*cmd_node_initialize(void);
-char		*str_return_trimmed(char *s, int start, int end, char *val);
-int			return_type(char c, char c_next);
+//heredoc.c
+void		closing_hdoc(int fd[2], t_cmd *cmd, int flag);
+int			heredoc(t_cmd *cmd, t_args *a);
+int			big_loop(t_cmd *cmd, t_args *a);
+//hdoc_expand.c
+char *hdoc_expand(char *s, t_args *args);
 
-//pipeX
+//pipex_utils.c
 int			pipefds_check(int (*pipefds)[2], int i, t_cmd *cur);
 void		processing_status(t_args *a, int size);
 void		checking_fork(t_args *a, pid_t forking, int i);
+//pipex.c
 void		execute(t_cmd *cmd, char **env);
+int			forking_separately(t_args *a, t_cmd *cur, int size);
 pid_t		forking(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a);
 void		process(int pipefd_in, int pipefd_out, t_cmd *cur, t_args *a);
 int			pipex_main(t_cmd_lst *cmd_lst, t_args *a);
 int			pipe_error(int pip);
-//utils
+//utils0.c
 int			hdoc_pipe_check(int fd[2], t_cmd *cmd);
+int			is_num(char c);
+int			is_alpha(char c);
 int			ft_tolower(int c);
-char		*get_environment(char *name, char **env);
-char		*ft_strjoin_m(char *s1, char *s2);
-char		*ft_strjoin2(char *s1, char *s2, int start, int end);
-char		*ft_strjoin22(char *s1, char *s2, int start, int end);
-char		*ft_strjoin3(char *str1, char *str2, char *str3);
-char		**from_lst_to_dbl(t_env_lst *env_lst);
+void		close_pipefds(int (*pipefds)[2], int i, t_cmd *cur, int cl_cur);
+//utils1.c
+int			ft_strncmp(char *s1, char *s2, unsigned int n);
 int			ft_strcmp(char *s1, char *s2);
+char		*ft_strcpy(char *s1, char *s2);
+char		**from_lst_to_dbl(t_env_lst *env_lst);
+char		*ft_str_tolower(char **s);
 
-//ft_split
-char		*ft_strdup(char *s1);
-//	*s = NULL;
-void		*ft_memcpy(void *dest, void *src, size_t n);
+//utils.c
 int			ft_is_space(char c);
-int			word_cpy(char *s_m, char *s, char quote);
+void		ft_putstr_fd(char *s, int fd, int fl);
+int			ft_strlen(char *s);
+int			ft_tolower(int c);
+void		closing(t_cmd *cur);
+
+//environment.c
+t_env_lst	*getting_env(char **env);
+char		*get_environment(char *name, char **env);
+
+//joins.c
+char		*ft_strjoin_m(char *s1, char *s2);
+char		*ft_strjoin(char *s1, char *s2, t_args *a);
+char		*ft_strjoin2(char *s1, char *s2, int start, int end);
+char		*ft_strjoin3(char *str1, char *str2, char *str3);
+
+//split.c
+static int	ft_count(char *str, char c);
+static char	*ft_start(char *s, char c);
+static char	*ft_end(char *s, char c);
+char		**split(char *s, char c);
+
+//split_utils.c
+int			ft_check_alloc(char **split, char *str, int index);
+void		*ft_memset(void *b, int c, size_t len);
+void		ft_bzero(void *s, size_t n);
+size_t		ft_strlcpy(char *dest, char *src, size_t dstsize);
+void		*ft_calloc(size_t count, size_t size);
+
+//split_utils0.c
+char		*ft_strdup(char *s1);
+void		*ft_memcpy(void *dest, void *src, size_t n);
 
 //split_utils.c
 void		*ft_calloc(size_t count, size_t size);
@@ -170,8 +207,12 @@ size_t		ft_strlcpy(char *dest, char *src, size_t dstsize);
 void		*ft_memset(void *b, int c, size_t len);
 int			ft_check_alloc(char **split, char *str, int index);
 
-//split_spaces.c
-char		**split(char *s, char c);
+//summerize.c
+t_list		*group_until_pipe(char *s);
+int			more_pipes(char *s);
+char		*ft_substr_m(char *s, int start, int end);
+int			find_last_quote(char *s, char quote);
+int			pipe_check(char *s, t_list *group, int i, int f);
 
 //quote_checks
 char		*removing_fst_lst_dbl_quotes(char *s);
@@ -179,11 +220,6 @@ int			find_d_unquote(char *s);
 char		*strcpy_noquotes(char *str, char c);
 
 //summerize.c
-t_list		*group_until_pipe(char *s);
-int			more_reds(char *s, char c);
-int			more_pipes(char *s);
-char		*ft_substr_m(char *s, int start, int end);
-int			find_last_quote(char *s, char quote);
 void		lst_print(t_list *list);
 void		lst_add_last(t_list *list, char *data);
 t_node		*node_initialize(char *data);
@@ -192,27 +228,21 @@ int			find_last_quote_with_full_index(char *s, char quote, int i);
 
 //file_for_red.c
 char		*file_trim(char *s, int k, int type);
-char		*less_red(char *s, int st, int end);
 int			is_red(char c);
 int			func_for_reds(t_cmd *cmd_node, t_red *red_node);
 int			red_big_loop(t_cmd *cmd);
 void		close_in_out(int fd);
+
 //error_cases
 int			parsing_error_checks(char *s);
 void		ft_print_error_and_exit(char *error, int code);
 void		ft_print_error_with_arg(char *cmd, char *arg);
-int			is_num(char c);
-int			is_alpha(char c);
 void		ft_putstr(char *str);
 void		dup_error(int du);
 
-//utils.c
-void		close_pipefds(int (*pipefds)[2], int i, t_cmd *cur, int cl_cur);
-char		*ft_strjoin(char *s1, char *s2, t_args *a);
-int			ft_strncmp(char *s1, char *s2, unsigned int n);
+
 void		ft_putstr_fd(char *s, int fd, int fl);
 int			ft_strlen(char *s);
-char		*ft_str_tolower(char **s);
 void		closing(t_cmd *cur);
 //trimming
 t_list		*lst_construct(void);
@@ -220,14 +250,13 @@ t_list		*lst_construct(void);
 char		*clean_fst_last(char *s);
 char		*filling_without_c(char *s, char c, int len, int count);
 char		*filling_with_nulls(char *s);
-//heredoc.c
-int			heredoc(t_cmd *cmd, t_args *a);
+
+//red_lst_construct.c
 void		red_lst_print(t_red_lst *list);
 t_red_lst	*red_lst_construct(void);
 t_red		*red_node_initialize(void);
 t_red		*red_node_initialize_pro(char *file, int type);
 void		red_add(t_red_lst *list, char *file, int type);
-int			big_loop(t_cmd *cmd, t_args *a);
 
 //expanding.c
 int			find_first_quote(char *s, int i);
@@ -251,8 +280,7 @@ t_env		*env_def_initialize(void);
 void		env_lst_print(t_env_lst *list);
 void		exp_lst_print(t_env_lst *list);
 
-//environment.c
-t_env_lst	*getting_env(char **env);
+
 
 //parsing.c
 void		parsing(t_args *args);
@@ -268,7 +296,6 @@ int			ft_exit(t_cmd *cmd_head);
 int			echo(t_cmd *cmd_node);
 int			env(t_env_lst *env_lst, char *arg, char **envv);
 int			pwd(void);
-char		*ft_strcpy(char *s1, char *s2);
 char		*adding_quotes(char *s);
 char		*equality_out_of_quotes(char *s);
 int			unset(t_env_lst *env_lst, t_env_lst *exp_lst, t_cmd *cmd_node);
@@ -316,6 +343,7 @@ void		update_status(t_args *args);
 void		remove_cur_env_node(t_env_lst *env_lst, char *s);
 void		redirections(t_cmd_lst *lst);
 //frees.c
+void		free_get_del(char *del, char *get, int hdoc_flg);
 void		pipefds_free(pid_t (*piefds)[2]);
 void		env_lst_destruct(t_env_lst **list);
 void		lst_destruct(t_list **list);
@@ -326,6 +354,4 @@ void		cmd_lst_destruct(t_cmd_lst **list, t_cmd *until);
 void		printer(char **s);
 void		update_free(t_cmd_lst **cmd_lst, t_list **lst, char *s, t_args *a);
 void		ft_perror_and_exit(char *cmd, int code);
-
-char	*ft_strjoin_m1(char *s1, char *s2);
 #endif

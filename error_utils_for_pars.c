@@ -6,7 +6,7 @@
 /*   By: zkarapet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 21:53:19 by zkarapet          #+#    #+#             */
-/*   Updated: 2023/03/03 14:27:32 by zkarapet         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:21:27 by zkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 int	parsing_error_checks(char *s)
 {
 	if (s[0] == '\0')
-	{
-		//g_status = 1;
 		return (1);
-	}
 	if (!find_unquoted(s))
 	{
 		ft_putstr_fd("Missing quote\n", 1, 0);
