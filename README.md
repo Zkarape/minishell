@@ -1,13 +1,13 @@
-Minishell
+# Minishell
 42 School Project: Recreating a simple shell
 
-📚 Project Overview
+## 📚 Project Overview
 Minishell is a simplified UNIX shell project developed as part of the 42 School curriculum.
 The goal of the project is to understand how a real shell works under the hood by building a fully functional miniature version from scratch.
 
 This shell handles command execution, built-in commands, environment management, redirections, pipes, signal handling, and basic parsing with quotes and expansions.
 
-🗂️ Repository Structure
+## 🗂️ Repository Structure
 minishell/
 ├── readline-master/        # Readline library (for input handling)
 ├── readline-zkarapet/       # Customized readline version
@@ -58,7 +58,8 @@ minishell/
 ├── utils1.c
 ├── Makefile                  # Makefile for compilation
 └── README.md                 # (this file)
-✨ Features
+
+## ✨ Features
 Prompt display and input handling
 
 Execute system commands (via execve)
@@ -105,7 +106,8 @@ Memory management to avoid leaks (tested with valgrind)
 bash
 make
 ./minishell
-📋 Requirements
+
+## 📋 Requirements
 OS: Linux / macOS
 
 Compiler: clang or gcc
@@ -119,7 +121,8 @@ sudo apt-get install libreadline-dev
 or on macOS:
 
 bash
-🧹 Coding Standards
+
+## 🧹 Coding Standards
 Follows the 42 Norminette rules
 
 No memory leaks
@@ -128,25 +131,25 @@ Proper use of error handling
 
 Clear separation of concerns across files
 
-⚠️ Known Issues
+## ⚠️ Known Issues
 Parsing very complex nested quotes may cause unexpected behavior
 
 Some edge cases for heredocs are simplified compared to a real bash
 
 Ctrl+C during heredoc may behave slightly differently from bash
 
-✍️ Authors
+## ✍️ Authors
 Zkarape
 
 Project developed at [42 Yerevan / 42 Network]
 
-🏆 Acknowledgements
+## 🏆 Acknowledgements
 42 School and its community
 
 GNU readline documentation
 
 Bash manual pages
 
-📜 License
+## 📜 License
 This project is for educational purposes only under the 42 Network guidelines.
 
