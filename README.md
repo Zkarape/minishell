@@ -7,57 +7,6 @@ The goal of the project is to understand how a real shell works under the hood b
 
 This shell handles command execution, built-in commands, environment management, redirections, pipes, signal handling, and basic parsing with quotes and expansions.
 
-## 🗂️ Repository Structure
-minishell/
-├── readline-master/        # Readline library (for input handling)
-├── readline-zkarapet/       # Customized readline version
-├── builtins.c               # Built-in command implementations
-├── builtins2.c
-├── builtins_main.c
-├── builtins_utils.c
-├── cd.c                     # Handling 'cd' command
-├── cmd_lst_construct.c      # Constructing command lists
-├── env_lst_adding.c          # Managing environment variable lists
-├── env_lst_construct.c
-├── environment.c
-├── error_utils.c             # Error handling utilities
-├── error_utils_for_pars.c
-├── exec_sum_up.c             # Summarizing execution logic
-├── exit.c                    # Handling 'exit' command
-├── expanding.c               # Variable expansion logic
-├── expanding_utils.c
-├── export.c                  # 'export' built-in
-├── export_utils.c
-├── file_for_red.c            # Handling redirections
-├── filling_with_nulls.c
-├── free_utils1.c             # Memory management helpers
-├── free_utils2.c
-├── frees.c
-├── ft_itoa.c                 # Integer to ASCII function
-├── git_script.sh             # Git automation script
-├── group_until_reds.c        # Grouping commands and redirections
-├── group_until_reds_utils.c
-├── hdoc_expand.c             # Expanding inside heredocs
-├── heredoc.c                 # Heredoc implementation
-├── joins.c                   # Joining strings (mainly during parsing)
-├── lst_construct.c           # List construction utilities
-├── main.c                    # Minishell entry point
-├── minishell.h               # Project header file
-├── parsing_sum.c             # Parsing flow
-├── pipex.c                   # Piping between commands
-├── pipex_utils.c
-├── quote_checks.c            # Quote parsing checks
-├── red_lst_construct.c       # Redirection list construction
-├── signal.c                  # Signal handling (Ctrl+C, Ctrl+D)
-├── split.c                   # Custom split functions
-├── split_utils.c
-├── split_utils0.c
-├── summerize.c               # Summarize parsed elements
-├── utils.c                   # General utilities
-├── utils0.c
-├── utils1.c
-├── Makefile                  # Makefile for compilation
-└── README.md                 # (this file)
 
 ## ✨ Features
 Prompt display and input handling
